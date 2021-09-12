@@ -1,6 +1,12 @@
 ### mobx-logger
 Work-in-progress logger for Mobx 6+
 
+### Installation
+
+```
+npm i mobx-log
+```
+
 ### Todo
 - [x] Log computed / action / observable
 - [x] Allow styling console output however you want
