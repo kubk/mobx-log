@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultLogger logs observable 1`] = `
+Array [
+  Array [
+    "14:34:57",
+    "OBSERVABLE",
+    "age",
+    23,
+    "->",
+    24,
+  ],
+]
+`;
+
+exports[`DefaultLogger logs observable 2`] = `
+Array [
+  Array [
+    "14:34:57",
+    "OBSERVABLE",
+    "age",
+    23,
+    "->",
+    24,
+  ],
+  Array [
+    Object {
+      "name": "age",
+      "newValue": 25,
+      "oldValue": 24,
+    },
+  ],
+  Array [
+    "14:34:57",
+    "OBSERVABLE",
+    "age",
+    24,
+    "->",
+    25,
+  ],
+]
+`;
