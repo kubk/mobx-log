@@ -1,4 +1,4 @@
-import type { PureSpyEvent } from "mobx/src/core/spy";
+import type { PureSpyEvent } from "mobx/dist/core/spy";
 import { IEqualsComparer } from "mobx";
 import { Logger } from "./logger";
 
