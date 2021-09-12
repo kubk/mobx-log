@@ -34,9 +34,10 @@ export const log = (event: SpyEvent, options: LogOptions): void => {
     }
   }
   if (event.type === "action") {
+    const storeName = event.object?.constructor.name ?? '<unnamed store>'
     logger.logAction({
-      name: `${event.object.constructor.name}.${event.name}`,
-      arguments: event.arguments,
+      name: `${storeName}.${event.name}`,
+      arguments: event.arguments
     });
   }
 };
