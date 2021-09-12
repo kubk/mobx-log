@@ -31,4 +31,29 @@ describe("DefaultLogger", () => {
 
     expect(logHistory.history).toMatchSnapshot();
   });
+
+  it("logs computed", () => {
+    const logHistory = new LogHistory()
+    const plainLogger = new DefaultLogger(logHistory.log, () => '14:34:57');
+
+    plainLogger.logComputed({
+      name: "isEven",
+      oldValue: true,
+      newValue: false,
+    });
+
+    expect(logHistory.history).toMatchSnapshot();
+  });
+
+  it("logs action", () => {
+    const logHistory = new LogHistory()
+    const plainLogger = new DefaultLogger(logHistory.log, () => '14:34:57');
+
+    plainLogger.logAction({
+      name: "add",
+      arguments: [1]
+    });
+
+    expect(logHistory.history).toMatchSnapshot();
+  });
 });

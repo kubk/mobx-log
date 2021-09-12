@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DefaultLogger logs action 1`] = `
+Array [
+  Array [
+    "14:34:57",
+    "ACTION",
+    "add",
+    Array [
+      1,
+    ],
+  ],
+]
+`;
+
+exports[`DefaultLogger logs computed 1`] = `
+Array [
+  Array [
+    "14:34:57",
+    "COMPUTED",
+    "isEven",
+    true,
+    "->",
+    false,
+  ],
+]
+`;
+
 exports[`DefaultLogger logs observable 1`] = `
 Array [
   Array [
