@@ -5,13 +5,13 @@ class LogHistory {
 
   log = (...messages: unknown[]) => {
     this.history.push([...messages]);
-  }
+  };
 }
 
 describe("DefaultLogger", () => {
   it("logs observable", () => {
-    const logHistory = new LogHistory()
-    const plainLogger = new DefaultLogger(logHistory.log, () => '14:34:57');
+    const logHistory = new LogHistory();
+    const plainLogger = new DefaultLogger(logHistory.log, () => "14:34:57");
 
     plainLogger.logObservable({
       name: "age",
@@ -33,8 +33,8 @@ describe("DefaultLogger", () => {
   });
 
   it("logs computed", () => {
-    const logHistory = new LogHistory()
-    const plainLogger = new DefaultLogger(logHistory.log, () => '14:34:57');
+    const logHistory = new LogHistory();
+    const plainLogger = new DefaultLogger(logHistory.log, () => "14:34:57");
 
     plainLogger.logComputed({
       name: "isEven",
@@ -46,12 +46,12 @@ describe("DefaultLogger", () => {
   });
 
   it("logs action", () => {
-    const logHistory = new LogHistory()
-    const plainLogger = new DefaultLogger(logHistory.log, () => '14:34:57');
+    const logHistory = new LogHistory();
+    const plainLogger = new DefaultLogger(logHistory.log, () => "14:34:57");
 
     plainLogger.logAction({
       name: "add",
-      arguments: [1]
+      arguments: [1],
     });
 
     expect(logHistory.history).toMatchSnapshot();

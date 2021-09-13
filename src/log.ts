@@ -1,23 +1,37 @@
 import type { PureSpyEvent } from "mobx/dist/core/spy";
-import { IEqualsComparer } from "mobx";
-import { Logger } from "./logger";
+import { comparer } from "mobx";
 
-type SpyEvent = PureSpyEvent & {
-  object: any;
+export type ComputedEvent = {
   name: string;
+  oldValue: unknown;
+  newValue: unknown;
+};
+
+export type ObservableEvent = {
+  name: string;
+  oldValue: unknown;
+  newValue: unknown;
+};
+
+export type ActionEvent = { name: string; arguments: unknown[] };
+
+export type Logger = {
+  logObservable(event: ObservableEvent): void;
+  logAction(event: ActionEvent): void;
+  logComputed(event: ComputedEvent): void;
 };
 
 export type LogOptions = {
   logger: Logger;
-  compare: IEqualsComparer<unknown>;
 };
 
-export const log = (event: SpyEvent, options: LogOptions): void => {
-  const { logger, compare } = options;
+export const log = (event: PureSpyEvent, options: LogOptions): void => {
+  const { logger } = options;
 
   if (event.type === "update") {
     if (event.observableKind === "computed") {
-      if (!compare(event.oldValue, event.newValue)) {
+      const equals = comparer.default;
+      if (!equals(event.oldValue, event.newValue)) {
         logger.logComputed({
           name: event.debugObjectName,
           oldValue: event.oldValue,
@@ -26,18 +40,21 @@ export const log = (event: SpyEvent, options: LogOptions): void => {
       }
     }
     if (event.observableKind === "object") {
+      // @ts-expect-error
+      const name = `${event.debugObjectName}.${event.name}`;
       logger.logObservable({
-        name: `${event.debugObjectName}.${event.name}`,
+        name,
         newValue: event.newValue,
         oldValue: event.oldValue,
       });
     }
   }
   if (event.type === "action") {
-    const storeName = event.object?.constructor.name ?? '<unnamed store>'
+    // @ts-expect-error
+    const storeName = event.object?.constructor.name ?? "<unnamed store>";
     logger.logAction({
       name: `${storeName}.${event.name}`,
-      arguments: event.arguments
+      arguments: event.arguments,
     });
   }
 };

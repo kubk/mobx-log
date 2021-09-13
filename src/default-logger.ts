@@ -1,4 +1,4 @@
-import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from "./logger";
+import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from "./log";
 
 type Write = (...messages: unknown[]) => void;
 type Now = () => string;
