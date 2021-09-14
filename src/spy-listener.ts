@@ -19,6 +19,10 @@ export class SpyListener {
         const equals = comparer.default;
         if (!equals(event.oldValue, event.newValue)) {
           const computedFullName = this.parseDebugName(event.debugObjectName);
+          const [storeName] = computedFullName.split('.');
+          if (!this.filtersByClass.includes(storeName)) {
+            return;
+          }
           logger.logComputed({
             name: computedFullName,
             oldValue: event.oldValue,

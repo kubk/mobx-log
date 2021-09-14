@@ -3,8 +3,6 @@
 exports[`makeLoggable logs 1`] = `
 Array [
   "13:13:13 COMPUTED StoreWithComputed.isDividedBy3 [object Object] -> true",
-  "13:13:13 COMPUTED StoreWithoutLog.isEven [object Object] -> false",
-  "13:13:13 COMPUTED StoreWithoutLog.isEven false -> true",
   "13:13:13 ACTION StoreWithComputed.increment ",
   "13:13:13 OBSERVABLE StoreWithComputed.value 0 -> 1",
   "13:13:13 COMPUTED StoreWithComputed.isDividedBy3 true -> false",
@@ -15,8 +13,6 @@ Array [
 exports[`makeLoggable logs 2`] = `
 Array [
   "13:13:13 COMPUTED StoreWithComputed.isDividedBy3 [object Object] -> true",
-  "13:13:13 COMPUTED StoreWithoutLog.isEven [object Object] -> false",
-  "13:13:13 COMPUTED StoreWithoutLog.isEven false -> true",
   "13:13:13 ACTION StoreWithComputed.increment ",
   "13:13:13 OBSERVABLE StoreWithComputed.value 0 -> 1",
   "13:13:13 COMPUTED StoreWithComputed.isDividedBy3 true -> false",
