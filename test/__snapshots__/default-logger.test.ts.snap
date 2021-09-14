@@ -2,67 +2,26 @@
 
 exports[`DefaultLogger logs action 1`] = `
 Array [
-  Array [
-    "14:34:57",
-    "ACTION",
-    "add",
-    Array [
-      1,
-    ],
-  ],
+  "14:34:57 ACTION add 1",
 ]
 `;
 
 exports[`DefaultLogger logs computed 1`] = `
 Array [
-  Array [
-    "14:34:57",
-    "COMPUTED",
-    "isEven",
-    true,
-    "->",
-    false,
-  ],
+  "14:34:57 COMPUTED isEven true -> false",
 ]
 `;
 
 exports[`DefaultLogger logs observable 1`] = `
 Array [
-  Array [
-    "14:34:57",
-    "OBSERVABLE",
-    "age",
-    23,
-    "->",
-    24,
-  ],
+  "14:34:57 OBSERVABLE age 23 -> 24",
 ]
 `;
 
 exports[`DefaultLogger logs observable 2`] = `
 Array [
-  Array [
-    "14:34:57",
-    "OBSERVABLE",
-    "age",
-    23,
-    "->",
-    24,
-  ],
-  Array [
-    Object {
-      "name": "age",
-      "newValue": 25,
-      "oldValue": 24,
-    },
-  ],
-  Array [
-    "14:34:57",
-    "OBSERVABLE",
-    "age",
-    24,
-    "->",
-    25,
-  ],
+  "14:34:57 OBSERVABLE age 23 -> 24",
+  "[object Object]",
+  "14:34:57 OBSERVABLE age 24 -> 25",
 ]
 `;

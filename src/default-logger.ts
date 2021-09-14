@@ -1,44 +1,48 @@
-import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from "./log";
-
-type Write = (...messages: unknown[]) => void;
-type Now = () => string;
+import {
+  ActionEvent,
+  ComputedEvent,
+  Logger,
+  LogWriter,
+  Now,
+  ObservableEvent,
+} from './types';
 
 export class DefaultLogger implements Logger {
   debug = false;
 
-  constructor(private write: Write, private now: Now) {}
+  constructor(private logWriter: LogWriter, private now: Now) {}
 
   logObservable(event: ObservableEvent): void {
     if (this.debug) {
-      this.write(event);
+      this.logWriter.write(event);
     }
-    this.write(
+    this.logWriter.write(
       this.now(),
-      "OBSERVABLE",
+      'OBSERVABLE',
       event.name,
       event.oldValue,
-      "->",
+      '->',
       event.newValue
     );
   }
 
   logAction(event: ActionEvent): void {
     if (this.debug) {
-      this.write(event);
+      this.logWriter.write(event);
     }
-    this.write(this.now(), "ACTION", event.name, event.arguments);
+    this.logWriter.write(this.now(), 'ACTION', event.name, event.arguments);
   }
 
   logComputed(event: ComputedEvent): void {
     if (this.debug) {
-      this.write(event);
+      this.logWriter.write(event);
     }
-    this.write(
+    this.logWriter.write(
       this.now(),
-      "COMPUTED",
+      'COMPUTED',
       event.name,
       event.oldValue,
-      "->",
+      '->',
       event.newValue
     );
   }

@@ -1,1 +1,2 @@
-export { enableLogging } from "./enable-logging";
+export { makeLoggable } from './make-loggable';
+export { configureMakeLoggable } from './config';
