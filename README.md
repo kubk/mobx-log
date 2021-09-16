@@ -15,4 +15,4 @@ npm i mobx-log
 - [x] Allow styling console output however you want
 - [ ] Exclude from production build automatically
 - [ ] Colorful diff
-- [ ] Ask Mobx maintainers how to find out computed comparer automatically or create PR to Mobx
+- [x] Ask Mobx maintainers how to find out computed comparer automatically or create PR to Mobx
