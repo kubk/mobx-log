@@ -8,14 +8,13 @@ npm i mobx-log
 ```
 
 ### Usage
-```js
-
+```diff
 class SomeStore {
   ...
 
   constructor() {
     makeAutoObservable(this);
-    makeLoggable(this);
++   makeLoggable(this);
   }
 }
 
