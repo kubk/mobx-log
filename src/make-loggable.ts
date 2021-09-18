@@ -1,6 +1,16 @@
 import { SpyListener } from './spy-listener';
 import { config } from './config';
-import { createFormatters } from './chrome-formatters';
+import {
+  ArrayFormatter,
+  ChromeFormatter,
+  ObjectFormatter,
+} from './chrome-formatters';
+
+declare global {
+  interface Window {
+    devtoolsFormatters: ChromeFormatter<any>[];
+  }
+}
 
 let spyListener: SpyListener;
 
@@ -12,13 +22,12 @@ export const makeLoggable = (store: Object) => {
     spyListener.listen();
 
     if (isBrowser) {
-      // @ts-ignore
       window.devtoolsFormatters = window.devtoolsFormatters || [];
-      const { ArrayFormatter, ObjectFormatter } = createFormatters();
-      // @ts-ignore
-      window.devtoolsFormatters.push(ArrayFormatter, ObjectFormatter);
+      window.devtoolsFormatters.push(
+        new ArrayFormatter(),
+        new ObjectFormatter()
+      );
     }
-
   }
   spyListener.addFilterByClass(store.constructor.name);
 };

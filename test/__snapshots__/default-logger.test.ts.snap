@@ -17,11 +17,3 @@ Array [
   "14:34:57 OBSERVABLE age 23 -> 24",
 ]
 `;
-
-exports[`DefaultLogger logs observable 2`] = `
-Array [
-  "14:34:57 OBSERVABLE age 23 -> 24",
-  "[object Object]",
-  "14:34:57 OBSERVABLE age 24 -> 25",
-]
-`;

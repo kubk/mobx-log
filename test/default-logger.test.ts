@@ -13,16 +13,6 @@ describe('DefaultLogger', () => {
     });
 
     expect(logWriter.history).toMatchSnapshot();
-
-    plainLogger.debug = true;
-
-    plainLogger.logObservable({
-      name: 'age',
-      oldValue: 24,
-      newValue: 25,
-    });
-
-    expect(logWriter.history).toMatchSnapshot();
   });
 
   it('logs computed', () => {

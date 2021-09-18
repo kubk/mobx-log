@@ -8,6 +8,14 @@ npm i mobx-log
 ```
 
 ### Usage
+
+1. Allow Chrome to use custom formatters: 
+
+![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/chrome-settings.png)
+![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png)
+
+2. Add `makeLoggable` to a store:
+
 ```diff
 class SomeStore {
   ...
@@ -20,12 +28,11 @@ class SomeStore {
 
 ```
 
-### How it is different from alternatives?
-- [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals. It also seems like this library isn't maintained anymore because simple feature requests are ignored: [1](https://github.com/winterbe/mobx-logger/issues/20), [2](https://github.com/winterbe/mobx-logger/issues/17), [3](https://github.com/winterbe/mobx-logger/issues/5).
+### Features
 
-### Todo
-- [x] Log computed / action / observable
-- [x] Allow styling console output however you want
-- [ ] Exclude from production build automatically
-- [ ] Colorful diff
-- [x] Ask Mobx maintainers how to find out computed comparer automatically or create PR to Mobx
+- It logs Mobx actions, observables and computeds
+- It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` anymore in your console.
+
+### How it is different from alternatives?
+- [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals.
+- [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is not maintained anymore.
