@@ -1,6 +1,6 @@
 import { DefaultLogger } from './default-logger';
-import { DefaultLogWriter } from './default-log-writer';
 import { Logger } from './types';
+import { DefaultLogWriter } from './log-writer';
 
 type Config = {
   logger: Logger;

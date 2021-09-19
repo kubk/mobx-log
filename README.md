@@ -32,6 +32,20 @@ class SomeStore {
 - Log Mobx actions, observables and computeds
 - It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
 
+### Customize
+
+In order to customize `mobx-log` use `configureMakeLoggable` function.
+
+- Add time for each log entry:
+```js
+
+import { DefaultLogger, DefaultLogWriter, now } from 'mobx-log';
+
+configureMakeLoggable({
+  logger: new DefaultLogger(new DefaultLogWriter(), now),
+});
+```
+
 ### How it is different from alternatives?
 - [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals.
 - [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is not maintained anymore.

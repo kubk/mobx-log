@@ -1,4 +1,6 @@
-export const now = () => {
+export type Now = () => string;
+
+export const now: Now = () => {
   const time = new Date();
   const h = time
     .getHours()

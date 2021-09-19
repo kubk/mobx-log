@@ -1,4 +1,12 @@
-import { LogWriter } from './types';
+export type LogWriter = {
+  write: (...messages: unknown[]) => void;
+};
+
+export class DefaultLogWriter implements LogWriter {
+  write(...messages: unknown[]) {
+    console.log(...messages);
+  }
+}
 
 export class CollectingLogWriter implements LogWriter {
   history: string[] = [];

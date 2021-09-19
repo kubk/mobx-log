@@ -1,11 +1,6 @@
-import {
-  ActionEvent,
-  ComputedEvent,
-  Logger,
-  LogWriter,
-  Now,
-  ObservableEvent,
-} from './types';
+import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from './types';
+import { LogWriter } from './log-writer';
+import { Now } from './now';
 
 export class DefaultLogger implements Logger {
   constructor(private logWriter: LogWriter, private now?: Now) {}

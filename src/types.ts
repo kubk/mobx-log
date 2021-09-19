@@ -17,9 +17,3 @@ export type Logger = {
   logAction(event: ActionEvent): void;
   logComputed(event: ComputedEvent): void;
 };
-
-export type Now = () => string;
-
-export type LogWriter = {
-  write: (...messages: unknown[]) => void;
-};

@@ -1,7 +1,7 @@
 import { autorun, makeAutoObservable } from 'mobx';
 import { DefaultLogger } from '../src/default-logger';
-import { CollectingLogWriter } from '../src/collecting-log-writer';
 import { configureMakeLoggable, makeLoggable } from '../src';
+import { CollectingLogWriter } from '../src/log-writer';
 
 const collectingWriter = new CollectingLogWriter();
 
@@ -58,7 +58,7 @@ class StoreWithoutLog {
 }
 
 describe('makeLoggable', () => {
-  it('logs', async (done) => {
+  it('logs', async done => {
     const storeWithComputed = new StoreWithComputed();
     const storeOnlyObservables = new StoreOnlyObservables();
     const storeWithoutLog = new StoreWithoutLog();
