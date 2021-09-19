@@ -1,6 +1,8 @@
 *.log
 .DS_Store
 node_modules
+.cache
 dist
 .idea
 package-lock.json
+.parcel-cache

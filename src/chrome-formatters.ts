@@ -1,6 +1,6 @@
 import { isObservableArray, isObservableObject, toJS } from 'mobx';
 
-type Css = Record<string, any>;
+type Css = { style: string };
 type Chunk = [string, Css, string];
 type Header = [string, Chunk, [string, string]];
 type Body = [string, Css, ...any[]];

@@ -11,7 +11,7 @@ export class SpyListener {
     spy(this.log);
   }
 
-  private log = (event: PureSpyEvent): void => {
+  private log = (event: PureSpyEvent) => {
     const { logger } = this;
 
     if (event.type === 'update') {
@@ -57,11 +57,11 @@ export class SpyListener {
     }
   };
 
-  private parseDebugName(name: string): string {
+  private parseDebugName(name: string) {
     return name.replace(/@\d+/, '');
   }
 
-  addFilterByClass(name: string): void {
+  addFilterByClass(name: string) {
     this.filtersByClass.push(name);
   }
 }
