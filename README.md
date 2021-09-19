@@ -29,9 +29,8 @@ class SomeStore {
 ```
 
 ### Features
-
-- It logs Mobx actions, observables and computeds
-- It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` anymore in your console.
+- Log Mobx actions, observables and computeds
+- It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
 
 ### How it is different from alternatives?
 - [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals.
