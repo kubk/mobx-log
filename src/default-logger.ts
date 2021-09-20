@@ -32,7 +32,12 @@ export class DefaultLogger implements Logger {
   }
 
   logAction(event: ActionEvent) {
-    const info = ['%c[A]', buildStyles(colors.red), event.name, event.arguments];
+    const info = [
+      '%c[A]',
+      buildStyles(colors.red),
+      event.name,
+      event.arguments,
+    ];
 
     if (this.now) {
       info.unshift(this.now());

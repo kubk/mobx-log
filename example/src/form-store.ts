@@ -2,9 +2,7 @@ import { action, makeAutoObservable } from 'mobx';
 import { makeLoggable } from '../../src';
 
 export class FormStore<T extends Record<string, number>> {
-  constructor(
-    public form: T
-  ) {
+  constructor(public form: T) {
     makeAutoObservable(this, {
       getField: false,
     });
@@ -16,7 +14,7 @@ export class FormStore<T extends Record<string, number>> {
   ): { value: T[Key]; onChange: (args: any) => void } {
     return {
       value: this.form[key],
-      onChange: action(event => {
+      onChange: action((event) => {
         this.form[key] = +event.currentTarget.value as any as T[Key];
       }),
     };

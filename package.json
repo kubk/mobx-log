@@ -28,10 +28,7 @@
     }
   },
   "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
+    "singleQuote": true
   },
   "name": "mobx-log",
   "author": "Egor Gorbachev",
@@ -53,11 +50,13 @@
     "husky": "^7.0.2",
     "mobx": "^6.3.3",
     "mobx-react-lite": "^3.2.1",
+    "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
-  }
+  },
+  "dependencies": {}
 }
