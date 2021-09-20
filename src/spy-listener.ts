@@ -5,7 +5,7 @@ import { Logger } from './types';
 export class SpyListener {
   private filtersByClass: string[] = [];
 
-  constructor(private logger: Logger) {}
+  constructor(private logger: Logger, private debug = false) {}
 
   listen() {
     spy(this.log);
@@ -13,6 +13,10 @@ export class SpyListener {
 
   private log = (event: PureSpyEvent) => {
     const { logger } = this;
+
+    if (this.debug) {
+      console.log(event);
+    }
 
     if (event.type === 'update') {
       if (event.observableKind === 'computed') {
@@ -31,7 +35,8 @@ export class SpyListener {
         }
       }
       if (event.observableKind === 'object') {
-        const storeName = this.parseDebugName(event.debugObjectName);
+        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const [storeName] = observableFullName.split('.');
         if (!this.filtersByClass.includes(storeName)) {
           return;
         }
