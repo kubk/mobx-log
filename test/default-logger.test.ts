@@ -1,4 +1,4 @@
-import { DefaultLogger } from '../src/default-logger';
+import { DefaultLogger } from '../src';
 import { CollectingLogWriter } from '../src/log-writer';
 
 describe('DefaultLogger', () => {

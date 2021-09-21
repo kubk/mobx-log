@@ -43,6 +43,16 @@ import { DefaultLogger, DefaultLogWriter, now } from 'mobx-log';
 
 configureMakeLoggable({
   logger: new DefaultLogger(new DefaultLogWriter(), now),
+  condition: true,
+});
+```
+- Spy only in dev mode to get rid of Mobx warning:
+```js
+import { DefaultLogger, DefaultLogWriter, now } from 'mobx-log';
+
+configureMakeLoggable({
+  logger: new DefaultLogger(new DefaultLogWriter(), now),
+  condition: process.env.NODE_ENV !== 'production',
 });
 ```
 

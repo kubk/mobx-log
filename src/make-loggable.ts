@@ -17,6 +17,9 @@ let spyListener: SpyListener;
 const isBrowser = typeof window !== 'undefined';
 
 export const makeLoggable = (store: Object) => {
+  if (!config.condition) {
+    return;
+  }
   if (!spyListener) {
     spyListener = new SpyListener(config.logger);
     spyListener.listen();
