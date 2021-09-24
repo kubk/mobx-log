@@ -2,25 +2,25 @@
 
 exports[`makeLoggable logs 1`] = `
 Array [
-  "13:13:13 %c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
-  "13:13:13 %c[A] color:#FF6157 StoreWithComputed.increment ",
-  "13:13:13 %c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
-  "13:13:13 %c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
-  "13:13:13 %c[A] color:#FF6157 StoreOnlyObservables.init ",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
+  "%c[A] color:#FF6157 StoreWithComputed.increment ",
+  "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
+  "%c[A] color:#FF6157 StoreOnlyObservables.init ",
 ]
 `;
 
 exports[`makeLoggable logs 2`] = `
 Array [
-  "13:13:13 %c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
-  "13:13:13 %c[A] color:#FF6157 StoreWithComputed.increment ",
-  "13:13:13 %c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
-  "13:13:13 %c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
-  "13:13:13 %c[A] color:#FF6157 StoreOnlyObservables.init ",
-  "13:13:13 %c[A] color:#FF6157 StoreWithComputed.increment ",
-  "13:13:13 %c[O] color:#FFBC2D StoreWithComputed.value 1 -> 2",
-  "13:13:13 %c[A] color:#FF6157 StoreWithComputed.increment ",
-  "13:13:13 %c[O] color:#FFBC2D StoreWithComputed.value 2 -> 3",
-  "13:13:13 %c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 false -> true",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
+  "%c[A] color:#FF6157 StoreWithComputed.increment ",
+  "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
+  "%c[A] color:#FF6157 StoreOnlyObservables.init ",
+  "%c[A] color:#FF6157 StoreWithComputed.increment ",
+  "%c[O] color:#FFBC2D StoreWithComputed.value 1 -> 2",
+  "%c[A] color:#FF6157 StoreWithComputed.increment ",
+  "%c[O] color:#FFBC2D StoreWithComputed.value 2 -> 3",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 false -> true",
 ]
 `;

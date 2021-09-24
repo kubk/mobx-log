@@ -6,7 +6,7 @@ import { CollectingLogWriter } from '../src/log-writer';
 const collectingWriter = new CollectingLogWriter();
 
 configureMakeLoggable({
-  logger: new DefaultLogger(collectingWriter, () => '13:13:13'),
+  logger: new DefaultLogger(collectingWriter),
   condition: false,
 });
 

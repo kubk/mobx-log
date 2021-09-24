@@ -1,6 +1,5 @@
 import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from './types';
 import { LogWriter } from './log-writer';
-import { Now } from './now';
 
 const colors = {
   red: '#FF6157',
@@ -12,7 +11,7 @@ const colors = {
 const buildStyles = (color: string) => `color:${color}`;
 
 export class DefaultLogger implements Logger {
-  constructor(private logWriter: LogWriter, private now?: Now) {}
+  constructor(private logWriter: LogWriter) {}
 
   logObservable(event: ObservableEvent) {
     const info = [
@@ -24,10 +23,6 @@ export class DefaultLogger implements Logger {
       event.newValue,
     ];
 
-    if (this.now) {
-      info.unshift(this.now());
-    }
-
     this.logWriter.write(...info);
   }
 
@@ -38,10 +33,6 @@ export class DefaultLogger implements Logger {
       event.name,
       event.arguments,
     ];
-
-    if (this.now) {
-      info.unshift(this.now());
-    }
 
     this.logWriter.write(...info);
   }
@@ -55,10 +46,6 @@ export class DefaultLogger implements Logger {
       '->',
       event.newValue,
     ];
-
-    if (this.now) {
-      info.unshift(this.now());
-    }
 
     this.logWriter.write(...info);
   }

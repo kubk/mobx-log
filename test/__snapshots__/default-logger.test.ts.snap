@@ -2,18 +2,18 @@
 
 exports[`DefaultLogger logs action 1`] = `
 Array [
-  "14:34:57 %c[A] color:#FF6157 add 1",
+  "%c[A] color:#FF6157 add 1",
 ]
 `;
 
 exports[`DefaultLogger logs computed 1`] = `
 Array [
-  "14:34:57 %c[C] color:#28B7F6 isEven true -> false",
+  "%c[C] color:#28B7F6 isEven true -> false",
 ]
 `;
 
 exports[`DefaultLogger logs observable 1`] = `
 Array [
-  "14:34:57 %c[O] color:#FFBC2D age 23 -> 24",
+  "%c[O] color:#FFBC2D age 23 -> 24",
 ]
 `;

@@ -4,7 +4,7 @@ import { CollectingLogWriter } from '../src/log-writer';
 describe('DefaultLogger', () => {
   it('logs observable', () => {
     const logWriter = new CollectingLogWriter();
-    const plainLogger = new DefaultLogger(logWriter, () => '14:34:57');
+    const plainLogger = new DefaultLogger(logWriter);
 
     plainLogger.logObservable({
       name: 'age',
@@ -17,7 +17,7 @@ describe('DefaultLogger', () => {
 
   it('logs computed', () => {
     const logWriter = new CollectingLogWriter();
-    const plainLogger = new DefaultLogger(logWriter, () => '14:34:57');
+    const plainLogger = new DefaultLogger(logWriter);
 
     plainLogger.logComputed({
       name: 'isEven',
@@ -30,7 +30,7 @@ describe('DefaultLogger', () => {
 
   it('logs action', () => {
     const logWriter = new CollectingLogWriter();
-    const plainLogger = new DefaultLogger(logWriter, () => '14:34:57');
+    const plainLogger = new DefaultLogger(logWriter);
 
     plainLogger.logAction({
       name: 'add',

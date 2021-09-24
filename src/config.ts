@@ -5,14 +5,23 @@ import { DefaultLogWriter } from './log-writer';
 type Config = {
   logger: Logger;
   condition: boolean;
+  debug: boolean;
 };
 
 export const config: Config = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   condition: true,
+  debug: false,
 };
 
-export const configureMakeLoggable = (options: Config) => {
-  config.logger = options.logger;
-  config.condition = options.condition;
+export const configureMakeLoggable = (options: Partial<Config>) => {
+  if (options.logger !== undefined) {
+    config.logger = options.logger;
+  }
+  if (options.condition !== undefined) {
+    config.condition = options.condition;
+  }
+  if (options.debug !== undefined) {
+    config.debug = options.debug;
+  }
 };

@@ -36,23 +36,47 @@ class SomeStore {
 
 In order to customize `mobx-log` use `configureMakeLoggable` function.
 
-- Add time for each log entry:
-```js
-
-import { DefaultLogger, DefaultLogWriter, now } from 'mobx-log';
-
-configureMakeLoggable({
-  logger: new DefaultLogger(new DefaultLogWriter(), now),
-  condition: true,
-});
-```
 - Spy only in dev mode to get rid of Mobx warning:
 ```js
-import { DefaultLogger, DefaultLogWriter, now } from 'mobx-log';
+import { configureMakeLoggable } from 'mobx-log';
 
 configureMakeLoggable({
-  logger: new DefaultLogger(new DefaultLogWriter(), now),
   condition: process.env.NODE_ENV !== 'production',
+});
+```
+
+- Enable debug mode (log all Mobx spy reports):
+```js
+import { configureMakeLoggable } from 'mobx-log';
+
+configureMakeLoggable({
+  debug: true
+});
+```
+
+- Customize logger output. Example - add time for each log entry:
+```typescript
+
+import { configureMakeLoggable, DefaultLogger, LogWriter } from 'mobx-log';
+
+export const now = () => {
+  const time = new Date();
+  const h = time.getHours().toString().padStart(2, '0');
+  const m = time.getMinutes().toString().padStart(2, '0');
+  const s = time.getSeconds().toString().padStart(2, '0');
+  const ms = time.getMilliseconds().toString().padStart(3, '0');
+
+  return `${h}:${m}:${s}.${ms}`;
+};
+
+class MyLogWriter implements LogWriter {
+  write(...messages: unknown[]) {
+    console.log(now(), ...messages);
+  }
+}
+
+configureMakeLoggable({
+  logger: new DefaultLogger(new MyLogWriter()),
 });
 ```
 
