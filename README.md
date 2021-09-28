@@ -1,5 +1,5 @@
 ### mobx-logger
-Work-in-progress logger for Mobx 6+
+Work-in-progress logger for Mobx 6+. It logs Mobx actions, observables and computeds. It also uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
 
 ### Installation
 
@@ -8,13 +8,7 @@ npm i mobx-log
 ```
 
 ### Usage
-
-1. Allow Chrome to use custom formatters: 
-
-![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/chrome-settings.png)
-![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png)
-
-2. Add `makeLoggable` to a store:
+1. Add `makeLoggable` to a store:
 
 ```diff
 class SomeStore {
@@ -25,18 +19,18 @@ class SomeStore {
 +   makeLoggable(this);
   }
 }
-
 ```
 
-### Features
-- Log Mobx actions, observables and computeds
-- It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
+2. Allow Chrome to use custom formatters: 
+
+![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/chrome-settings.png)
+![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png)
 
 ### Customize
 
 In order to customize `mobx-log` use `configureMakeLoggable` function.
 
-- Spy only in dev mode to get rid of Mobx warning:
+- **Recommended**: Spy only in dev mode to get rid of Mobx warning in production:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
