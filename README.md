@@ -1,4 +1,10 @@
-### mobx-logger
+# mobx-log
+
+[![Npm Version](https://badge.fury.io/js/mobx-log.svg)](https://badge.fury.io/js/mobx-log)
+[![NPM downloads](http://img.shields.io/npm/dm/mobx-log.svg)](https://www.npmjs.com/package/mobx-log)
+[![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 Work-in-progress logger for Mobx 6+. It logs Mobx actions, observables and computeds. It also uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
 
 ### Installation
