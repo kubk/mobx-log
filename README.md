@@ -21,9 +21,8 @@ class SomeStore {
 }
 ```
 
-2. Allow Chrome to use custom formatters: 
+2. In Dev Tools, press F1 to load the Settings. Scroll down to the Console section and check "Enable custom formatters":
 
-![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/chrome-settings.png)
 ![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png)
 
 ### Customize
