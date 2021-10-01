@@ -56,6 +56,7 @@ class AuthStore {
 ```
 
 Then you can type `store.authStore` in your browser console. Feel free to log store, call actions and computeds in the console. Works only in dev mode.
+
 ---
 - Enable debug mode  - log all Mobx spy reports. Useful for library contributors:
 ```js
