@@ -7,7 +7,6 @@ const collectingWriter = new CollectingLogWriter();
 
 configureMakeLoggable({
   logger: new DefaultLogger(collectingWriter),
-  condition: true,
 });
 
 class StoreWithComputed {

@@ -5,9 +5,10 @@ import { CollectingLogWriter } from '../src/log-writer';
 
 const collectingWriter = new CollectingLogWriter();
 
+process.env.NODE_ENV = 'production';
+
 configureMakeLoggable({
   logger: new DefaultLogger(collectingWriter),
-  condition: false,
 });
 
 class StoreOnlyObservables {

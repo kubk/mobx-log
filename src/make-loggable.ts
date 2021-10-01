@@ -20,7 +20,7 @@ const firstLetterLowerCase = (word: string) => {
 };
 
 export const makeLoggable = (store: Object) => {
-  if (!config.condition) {
+  if (process.env.NODE_ENV === 'production') {
     return;
   }
 
