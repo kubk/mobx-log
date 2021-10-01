@@ -66,7 +66,7 @@ export class SpyListener {
     return name.replace(/@\d+/, '');
   }
 
-  addFilterByClass(name: string) {
+  addFilterByStoreName(name: string) {
     this.filtersByClass.push(name);
   }
 }

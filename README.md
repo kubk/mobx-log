@@ -5,7 +5,7 @@
 [![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Work-in-progress logger for Mobx 6+. It logs Mobx actions, observables and computeds. It also uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore.
+Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode. 
 
 ### Installation
 
@@ -35,6 +35,7 @@ class SomeStore {
 
 In order to customize `mobx-log` use `configureMakeLoggable` function.
 
+---
 - **Recommended**: Spy only in dev mode to get rid of Mobx warning in production:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
@@ -43,8 +44,30 @@ configureMakeLoggable({
   condition: process.env.NODE_ENV !== 'production',
 });
 ```
+---
+- **Recommended**: Access stores as global variables in browser console:
+```js
+import { configureMakeLoggable } from 'mobx-log';
 
-- Enable debug mode (log all Mobx spy reports):
+configureMakeLoggable({
+  storeBrowserAccess: true,
+});
+```
+
+After it all the stores marked as loggable become accessible as global variables. Example:
+```js
+class AuthStore {
+  constructor() {
+    ...
+    makeLoggable(this);
+  }
+}
+```
+
+Then you can type `store.authStore` in your browser console. Feel free to log store, call actions and computeds in the console.
+
+---
+- Enable debug mode  - log all Mobx spy reports. Useful for library contributors:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -52,7 +75,7 @@ configureMakeLoggable({
   debug: true
 });
 ```
-
+---
 - Customize logger output. Example - add time for each log entry:
 ```typescript
 

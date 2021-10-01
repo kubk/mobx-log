@@ -6,12 +6,14 @@ type Config = {
   logger: Logger;
   condition: boolean;
   debug: boolean;
+  storeConsoleAccess: boolean;
 };
 
 export const config: Config = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   condition: true,
   debug: false,
+  storeConsoleAccess: false,
 };
 
 export const configureMakeLoggable = (options: Partial<Config>) => {
@@ -23,5 +25,8 @@ export const configureMakeLoggable = (options: Partial<Config>) => {
   }
   if (options.debug !== undefined) {
     config.debug = options.debug;
+  }
+  if (options.storeConsoleAccess !== undefined) {
+    config.storeConsoleAccess = options.storeConsoleAccess;
   }
 };

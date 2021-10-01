@@ -9,21 +9,26 @@ import {
 declare global {
   interface Window {
     devtoolsFormatters: ChromeFormatter<any>[];
+    store: Record<string, object>;
   }
 }
 
 let spyListener: SpyListener;
 
-const isBrowser = typeof window !== 'undefined';
+const firstLetterLowerCase = (word: string) => {
+  return word.charAt(0).toLowerCase() + word.slice(1);
+};
 
 export const makeLoggable = (store: Object) => {
   if (!config.condition) {
     return;
   }
+
   if (!spyListener) {
     spyListener = new SpyListener(config.logger, config.debug);
     spyListener.listen();
 
+    const isBrowser = typeof window !== 'undefined';
     if (isBrowser) {
       window.devtoolsFormatters = window.devtoolsFormatters || [];
       window.devtoolsFormatters.push(
@@ -32,5 +37,15 @@ export const makeLoggable = (store: Object) => {
       );
     }
   }
-  spyListener.addFilterByClass(store.constructor.name);
+
+  const storeName = store.constructor.name;
+
+  if (config.storeConsoleAccess) {
+    if (!window.store) {
+      window.store = {};
+    }
+    window.store[firstLetterLowerCase(storeName)] = store;
+  }
+
+  spyListener.addFilterByStoreName(storeName);
 };
