@@ -2,7 +2,7 @@
 
 exports[`DefaultLogger logs action 1`] = `
 Array [
-  "%c[A] color:#FF6157 add 1",
+  "%c[A]%c add(%o) color:#FF6157 color:inherit 1",
 ]
 `;
 

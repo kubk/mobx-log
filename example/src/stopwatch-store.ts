@@ -7,10 +7,12 @@ export class StopwatchStore {
   step = 1;
   count = 0;
 
-  private lastIntervalId: number | null = null;
+  lastIntervalId: number | null = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      lastIntervalId: false,
+    });
     makeLoggable(this);
   }
 

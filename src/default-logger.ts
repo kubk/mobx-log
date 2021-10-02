@@ -8,15 +8,13 @@ const colors = {
   green: '#2BC941',
 };
 
-const buildStyles = (color: string) => `color:${color}`;
-
 export class DefaultLogger implements Logger {
   constructor(private logWriter: LogWriter) {}
 
   logObservable(event: ObservableEvent) {
     const info = [
       '%c[O]',
-      buildStyles(colors.orange),
+      `color:${colors.orange}`,
       event.name,
       event.oldValue,
       '->',
@@ -27,11 +25,16 @@ export class DefaultLogger implements Logger {
   }
 
   logAction(event: ActionEvent) {
-    const info = [
-      '%c[A]',
-      buildStyles(colors.red),
-      event.name,
-      event.arguments,
+    const formattedArguments =
+      event.arguments.length > 0
+        ? '%o '.repeat(event.arguments.length).slice(0, -1)
+        : '';
+
+    const info: unknown[] = [
+      `%c[A]%c ${event.name}(${formattedArguments})`,
+      `color:${colors.red}`,
+      'color:inherit',
+      ...event.arguments,
     ];
 
     this.logWriter.write(...info);
@@ -40,7 +43,7 @@ export class DefaultLogger implements Logger {
   logComputed(event: ComputedEvent) {
     const info = [
       '%c[C]',
-      buildStyles(colors.blue),
+      `color:${colors.blue}`,
       event.name,
       event.oldValue,
       '->',
