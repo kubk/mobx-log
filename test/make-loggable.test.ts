@@ -57,8 +57,39 @@ class StoreWithoutLog {
   }
 }
 
+type Todo = { id: number; text: string; isDone: boolean }
+
+class TodoStore {
+  todos: Todo[] = [];
+
+  constructor() {
+    makeAutoObservable(this);
+    makeLoggable(this);
+  }
+
+  addTodo(id: number, text: string) {
+    this.todos.push({
+      id,
+      text,
+      isDone: false,
+    })
+  }
+
+  markAsDone(id: number) {
+    const todo = this.todos.find(todo => todo.id === id);
+    if (!todo) {
+      throw new Error('Find error');
+    }
+    todo.isDone = true;
+  }
+}
+
 describe('makeLoggable', () => {
-  it('logs', async done => {
+  beforeEach(() => {
+    collectingWriter.clear();
+  })
+
+  it('logs', () => {
     const storeWithComputed = new StoreWithComputed();
     const storeOnlyObservables = new StoreOnlyObservables();
     const storeWithoutLog = new StoreWithoutLog();
@@ -82,7 +113,16 @@ describe('makeLoggable', () => {
     storeWithComputed.increment();
 
     expect(collectingWriter.history).toMatchSnapshot();
-
-    done();
   });
+
+  it('logs array changes correctly', () => {
+    const todoStore = new TodoStore();
+    todoStore.addTodo(1, 'Play balalaika');
+
+    expect(collectingWriter.history).toMatchSnapshot();
+
+    todoStore.markAsDone(1);
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  })
 });

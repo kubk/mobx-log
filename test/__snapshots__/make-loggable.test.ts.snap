@@ -24,3 +24,17 @@ Array [
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 false -> true",
 ]
 `;
+
+exports[`makeLoggable logs array changes correctly 1`] = `
+Array [
+  "%c[A] color:#FF6157 TodoStore.addTodo 1,Play balalaika",
+]
+`;
+
+exports[`makeLoggable logs array changes correctly 2`] = `
+Array [
+  "%c[A] color:#FF6157 TodoStore.addTodo 1,Play balalaika",
+  "%c[A] color:#FF6157 TodoStore.markAsDone 1",
+  "%c[O] color:#FFBC2D TodoStore.todos[..].isDone false -> true",
+]
+`;

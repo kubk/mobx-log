@@ -26,13 +26,11 @@ class StoreOnlyObservables {
   }
 }
 
-describe('makeLoggable - condition false', () => {
-  it('logs', async done => {
+describe('configureMakeLoggable', () => {
+  it('does not log in production', () => {
     const storeOnlyObservables = new StoreOnlyObservables();
     storeOnlyObservables.init();
 
     expect(collectingWriter.history).toHaveLength(0);
-
-    done();
   });
 });

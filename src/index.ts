@@ -7,5 +7,4 @@ export type {
   Logger,
 } from './types';
 export { DefaultLogWriter } from './log-writer';
-export { now } from './now';
 export { configureMakeLoggable } from './config';

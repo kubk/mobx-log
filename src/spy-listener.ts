@@ -40,8 +40,9 @@ export class SpyListener {
         if (!this.filtersByClass.includes(storeName)) {
           return;
         }
-        // @ts-expect-error
-        const name = `${storeName}.${event.name}`;
+        // Mobx spy adds '[..]' to object name in case change happened inside array
+        const isArray = observableFullName.endsWith('[..]');
+        const name = `${isArray ? observableFullName : storeName}.${event.name.toString()}`;
         logger.logObservable({
           name,
           newValue: event.newValue,
@@ -50,7 +51,9 @@ export class SpyListener {
       }
     }
     if (event.type === 'action') {
-      // @ts-expect-error
+      if (typeof event.object !== 'object') {
+        return;
+      }
       const storeName = event.object?.constructor.name ?? '<unnamed store>';
       if (!this.filtersByClass.includes(storeName)) {
         return;

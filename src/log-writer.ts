@@ -17,4 +17,8 @@ export class CollectingLogWriter implements LogWriter {
     );
     this.history.push(strings.join(' '));
   }
+
+  clear() {
+    this.history = [];
+  }
 }

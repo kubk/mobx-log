@@ -9,7 +9,7 @@ import {
 declare global {
   interface Window {
     devtoolsFormatters: ChromeFormatter<any>[];
-    store: Record<string, object>;
+    store?: Record<string, object | Array<object>>;
   }
 }
 
@@ -41,10 +41,24 @@ export const makeLoggable = (store: Object) => {
   const storeName = store.constructor.name;
 
   if (config.storeConsoleAccess) {
-    if (!window.store) {
+    if (window.store === undefined) {
       window.store = {};
     }
-    window.store[firstLetterLowerCase(storeName)] = store;
+    const storeKey = firstLetterLowerCase(storeName);
+    if (window.store[storeKey] === undefined) {
+      window.store[storeKey] = store;
+    } else {
+      // If the key is not empty there is already a store with the same name added to window object
+      // Let's turn it into an array of stores to not lose any store
+      if (!Array.isArray(window.store[storeKey])) {
+        window.store[storeKey] = [window.store[storeKey]];
+      }
+      const storeList = window.store[storeKey];
+      if (!Array.isArray(storeList)) {
+        throw new Error('TypeScript check. Should not be reached');
+      }
+      storeList.push(store);
+    }
   }
 
   spyListener.addFilterByStoreName(storeName);
