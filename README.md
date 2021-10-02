@@ -100,5 +100,5 @@ configureMakeLoggable({
 - [mobx-react-devtools](https://github.com/mobxjs/mobx-react-devtools) is deprecated
 
 ### Credit
-All credit for Chrome formatting funcionality goes to Nate Wienert and [this repo](https://github.com/motion/mobx-formatters). Thank you.
+All credit for Chrome formatting functionality goes to Nate Wienert and [this repo](https://github.com/motion/mobx-formatters). Thank you.
 
