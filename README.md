@@ -41,7 +41,7 @@ In order to customize `mobx-log` use `configureMakeLoggable` function.
 import { configureMakeLoggable } from 'mobx-log';
 
 configureMakeLoggable({
-  storeBrowserAccess: true,
+  storeConsoleAccess: true,
 });
 ```
 
