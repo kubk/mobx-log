@@ -42,8 +42,11 @@ export class SpyListener {
         }
         // Mobx spy adds '[..]' to object name in case change happened inside array
         const isArray = observableFullName.endsWith('[..]');
-        const name = `${isArray ? observableFullName : storeName}.${event.name.toString()}`;
+        const name = `${
+          isArray ? observableFullName : storeName
+        }.${event.name.toString()}`;
         logger.logObservable({
+          type: 'update',
           name,
           newValue: event.newValue,
           oldValue: event.oldValue,
@@ -62,6 +65,25 @@ export class SpyListener {
         name: `${storeName}.${event.name}`,
         arguments: event.arguments,
       });
+      return;
+    }
+
+    if ('observableKind' in event) {
+      if (event.observableKind === 'array') {
+        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const [storeName, key] = observableFullName.split('.');
+        if (!this.filtersByClass.includes(storeName)) {
+          return;
+        }
+        logger.logObservable({
+          type: 'array',
+          name: `${storeName}.${key.toString()}`,
+          // @ts-expect-error
+          removed: event.removed,
+          // @ts-expect-error
+          added: event.added,
+        });
+      }
     }
   };
 

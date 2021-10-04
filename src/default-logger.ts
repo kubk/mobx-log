@@ -12,16 +12,36 @@ export class DefaultLogger implements Logger {
   constructor(private logWriter: LogWriter) {}
 
   logObservable(event: ObservableEvent) {
-    const info = [
-      '%c[O]',
-      `color:${colors.orange}`,
-      event.name,
-      event.oldValue,
-      '->',
-      event.newValue,
-    ];
+    if (event.type === 'update') {
+      const info = [
+        '%c[O]',
+        `color:${colors.orange}`,
+        event.name,
+        event.oldValue,
+        '->',
+        event.newValue,
+      ];
 
-    this.logWriter.write(...info);
+      this.logWriter.write(...info);
+    }
+
+    if (event.type === 'array') {
+      const info: unknown[] = [
+        '%c[O]',
+        `color:${colors.orange}`,
+        event.name,
+        'array has changed.',
+      ];
+
+      if (event.removed.length) {
+        info.push('Removed: ', event.removed);
+      }
+      if (event.added.length) {
+        info.push('Added: ', event.added);
+      }
+
+      this.logWriter.write(...info);
+    }
   }
 
   logAction(event: ActionEvent) {

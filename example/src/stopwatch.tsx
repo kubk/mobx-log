@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 import { StopwatchStore } from './stopwatch-store';
 import { FormStore } from './form-store';
+import { ParticipantStore } from './participant-store';
 
 export const Stopwatch = observer(() => {
   const [stopwatch] = useState(() => new StopwatchStore());
@@ -13,9 +14,26 @@ export const Stopwatch = observer(() => {
       step: stopwatch.step,
     });
   });
+  const themeStore = useLocalObservable(() => ({
+    theme: null as 'dark' | 'light' | null,
+    switch(theme: 'dark' | 'light') {
+      this.theme = theme;
+    },
+  }));
+  const [participantStore] = useState(() => new ParticipantStore());
 
   return (
-    <div className="body">
+    <div className={`body ${themeStore.theme === 'dark' ? 'dark' : ''}`}>
+      <label className="theme-switcher">
+        <input
+          type="checkbox"
+          checked={themeStore.theme === 'dark'}
+          onChange={(event) => {
+            themeStore.switch(event.currentTarget.checked ? 'dark' : 'light');
+          }}
+        />{' '}
+        Dark mode
+      </label>
       <div id="counter">{stopwatch.count}</div>
       <div id="controls">
         <fieldset>

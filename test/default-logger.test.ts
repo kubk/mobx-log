@@ -7,6 +7,7 @@ describe('DefaultLogger', () => {
     const plainLogger = new DefaultLogger(logWriter);
 
     plainLogger.logObservable({
+      type: 'update',
       name: 'age',
       oldValue: 23,
       newValue: 24,

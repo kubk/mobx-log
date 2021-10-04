@@ -12,7 +12,7 @@ class Counter {
   value = 0;
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
     makeLoggable(this);
   }
 
@@ -25,7 +25,7 @@ class Todo {
   isDone = false;
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
     makeLoggable(this);
   }
 
