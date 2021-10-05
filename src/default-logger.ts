@@ -36,7 +36,7 @@ export class DefaultLogger implements Logger {
       if (event.removed?.length) {
         info.push('Removed: ', event.removed);
       }
-      if (event.added.length) {
+      if (event.added?.length) {
         info.push('Added: ', event.added);
       }
 
