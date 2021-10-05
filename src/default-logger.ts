@@ -30,7 +30,7 @@ export class DefaultLogger implements Logger {
         '%c[O]',
         `color:${colors.orange}`,
         event.name,
-        ' has changed.',
+        'has changed.',
       ];
 
       if (event.removed?.length) {
