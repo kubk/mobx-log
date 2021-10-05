@@ -98,6 +98,7 @@ configureMakeLoggable({
 - [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is not maintained anymore. It also doesn't show computeds.
 - [mobx-devtools](https://github.com/mobxjs/mobx-devtools) does not show changes in computeds
 - [mobx-react-devtools](https://github.com/mobxjs/mobx-react-devtools) is deprecated
+- [mobx-formatters](https://github.com/motion/mobx-formatters) doesn't support Map & Set. Also it's just a proxy formatter, not a logger
 
 ### Credit
 All credit for Chrome formatting functionality goes to Nate Wienert and [this repo](https://github.com/motion/mobx-formatters). Thank you.

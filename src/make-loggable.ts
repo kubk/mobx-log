@@ -3,7 +3,9 @@ import { config } from './config';
 import {
   ArrayFormatter,
   ChromeFormatter,
+  MapFormatter,
   ObjectFormatter,
+  SetFormatter,
 } from './chrome-formatters';
 
 declare global {
@@ -33,7 +35,9 @@ export const makeLoggable = (store: Object) => {
       window.devtoolsFormatters = window.devtoolsFormatters || [];
       window.devtoolsFormatters.push(
         new ArrayFormatter(),
-        new ObjectFormatter()
+        new ObjectFormatter(),
+        new MapFormatter(),
+        new SetFormatter()
       );
     }
   }
@@ -55,7 +59,9 @@ export const makeLoggable = (store: Object) => {
       }
       const storeList = window.store[storeKey];
       if (!Array.isArray(storeList)) {
-        throw new Error('TypeScript check. Should not be reached');
+        throw new Error(
+          'TypeScript check. Should not be reached. Please file an issue if you encounter this'
+        );
       }
       storeList.push(store);
     }

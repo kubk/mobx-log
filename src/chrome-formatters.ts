@@ -1,4 +1,12 @@
-import { isObservableArray, isObservableObject, toJS } from 'mobx';
+import {
+  isObservableArray,
+  isObservableMap,
+  isObservableObject,
+  isObservableSet,
+  ObservableMap,
+  ObservableSet,
+  toJS,
+} from 'mobx';
 
 type Css = { style: string };
 type Chunk = [string, Css, string];
@@ -28,20 +36,34 @@ const reference = (object: unknown) => {
 };
 
 const renderIterableHeader = (
-  iterable: ArrayLike<unknown>,
+  iterable:
+    | ArrayLike<unknown>
+    | ObservableMap<unknown, unknown>
+    | ObservableSet<unknown>,
   name: string
-): Header => [
-  'span',
-  ['span', styles.mobxName, name],
-  ['span', `[${iterable.length}]`],
-];
+): Header => {
+  const count =
+    isObservableMap(iterable) || isObservableSet(iterable)
+      ? iterable.size
+      : iterable.length;
 
-const hasBody = (collection: ArrayLike<unknown>) => collection.length > 0;
+  return ['span', ['span', styles.mobxName, name], ['span', `[${count}]`]];
+};
 
 const renderIterableBody = (
-  collection: ArrayLike<unknown> | {},
+  collection:
+    | ArrayLike<unknown>
+    | ObservableMap<unknown, unknown>
+    | ObservableSet<unknown>
+    | {},
   mapper: (val: [string, unknown]) => unknown
 ): Body => {
+  if (isObservableMap(collection) || isObservableSet(collection)) {
+    // @ts-ignore
+    const children = Array.from(toJS(collection)).map(mapper);
+    return ['ol', styles.list, ...children];
+  }
+
   const children = Object.entries(toJS(collection)).map(mapper);
   return ['ol', styles.list, ...children];
 };
@@ -54,7 +76,7 @@ export class ObjectFormatter implements ChromeFormatter<{}> {
   }
 
   hasBody(argument: {}): boolean {
-    return hasBody(Object.keys(argument));
+    return Object.keys(argument).length > 0;
   }
 
   body(argument: {}) {
@@ -69,20 +91,58 @@ export class ObjectFormatter implements ChromeFormatter<{}> {
 }
 
 export class ArrayFormatter implements ChromeFormatter<ArrayLike<unknown>> {
+  header(argument: ArrayLike<unknown>): Header | null {
+    return isObservableArray(argument)
+      ? renderIterableHeader(argument, 'Array')
+      : null;
+  }
+
+  hasBody(argument: ArrayLike<unknown>): boolean {
+    return argument.length > 0;
+  }
+
   body(argument: ArrayLike<unknown>): Body {
     return renderIterableBody(argument, ([_, value]) => [
       'li',
       reference(value),
     ]);
   }
+}
 
-  hasBody(argument: ArrayLike<unknown>): boolean {
-    return hasBody(argument);
+export class MapFormatter implements ChromeFormatter<Map<unknown, unknown>> {
+  header(argument: Map<unknown, unknown>): Header | null {
+    return isObservableMap(argument)
+      ? renderIterableHeader(argument, 'Map')
+      : null;
   }
 
-  header(argument: ArrayLike<unknown>): Header | null {
-    return isObservableArray(argument)
-      ? renderIterableHeader(argument, 'Array')
+  hasBody(argument: Map<unknown, unknown>): boolean {
+    return argument.size > 0;
+  }
+
+  body(argument: Map<unknown, unknown>): Body {
+    return renderIterableBody(argument, ([key, value]) => [
+      'li',
+      {},
+      reference(key),
+      ': ',
+      reference(value),
+    ]);
+  }
+}
+
+export class SetFormatter implements ChromeFormatter<Set<unknown>> {
+  header(argument: Set<unknown>): Header | null {
+    return isObservableSet(argument)
+      ? renderIterableHeader(argument, 'Set')
       : null;
+  }
+
+  hasBody(argument: Set<unknown>): boolean {
+    return argument.size > 0;
+  }
+
+  body(argument: Set<unknown>): Body {
+    return renderIterableBody(argument, (value) => ['li', reference(value)]);
   }
 }

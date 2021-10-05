@@ -45,6 +45,7 @@ export class SpyListener {
         const name = `${
           isArray ? observableFullName : storeName
         }.${event.name.toString()}`;
+
         logger.logObservable({
           type: 'update',
           name,
@@ -53,6 +54,7 @@ export class SpyListener {
         });
       }
     }
+
     if (event.type === 'action') {
       if (typeof event.object !== 'object') {
         return;
@@ -76,12 +78,47 @@ export class SpyListener {
           return;
         }
         logger.logObservable({
-          type: 'array',
+          type: event.observableKind,
           name: `${storeName}.${key.toString()}`,
           // @ts-expect-error
           removed: event.removed,
           // @ts-expect-error
           added: event.added,
+        });
+      }
+      if (event.observableKind === 'map') {
+        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const [storeName, key] = observableFullName.split('.');
+        if (!this.filtersByClass.includes(storeName)) {
+          return;
+        }
+        logger.logObservable({
+          type: 'map',
+          key: event.name,
+          value: 'newValue' in event ? event.newValue : undefined,
+          oldValue: 'oldValue' in event ? event.oldValue : undefined,
+          name: `${storeName}.${key.toString()}`,
+          mapType: event.type,
+        });
+      }
+      if (event.observableKind === 'set') {
+        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const [storeName, key] = observableFullName.split('.');
+        if (!this.filtersByClass.includes(storeName)) {
+          return;
+        }
+        const value =
+          event.type === 'delete'
+            ? event.oldValue
+            : event.type === 'add'
+            ? event.newValue
+            : undefined;
+
+        logger.logObservable({
+          type: 'set',
+          value,
+          name: `${storeName}.${key.toString()}`,
+          setType: event.type,
         });
       }
     }

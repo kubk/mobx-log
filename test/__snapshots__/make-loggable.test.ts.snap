@@ -27,39 +27,68 @@ Array [
 
 exports[`makeLoggable logs array changes correctly 1`] = `
 Array [
-  "%c[A]%c TodoStore.addTodo(%o %o) color:#FF6157 color:inherit 1 Play balalaika",
-  "%c[O] color:#FFBC2D TodoStore.todos array has changed. Added:  [object Object]",
+  "%c[A]%c TodoStore.addTodo(%o, %o) color:#FF6157 color:inherit 1 Play balalaika",
+  "%c[O] color:#FFBC2D TodoStore.todos  has changed. Added:  [object Object]",
 ]
 `;
 
 exports[`makeLoggable logs array changes correctly 2`] = `
 Array [
-  "%c[A]%c TodoStore.addTodo(%o %o) color:#FF6157 color:inherit 1 Play balalaika",
-  "%c[O] color:#FFBC2D TodoStore.todos array has changed. Added:  [object Object]",
+  "%c[A]%c TodoStore.addTodo(%o, %o) color:#FF6157 color:inherit 1 Play balalaika",
+  "%c[O] color:#FFBC2D TodoStore.todos  has changed. Added:  [object Object]",
   "%c[A]%c TodoStore.markAsDone(%o) color:#FF6157 color:inherit 1",
   "%c[O] color:#FFBC2D TodoStore.todos[..].isDone false -> true",
+]
+`;
+
+exports[`makeLoggable logs observable and observable map 1`] = `
+Array [
+  "%c[A]%c ParticipantStore.onlineUserSet(%o, %o) color:#FF6157 color:inherit 1 true",
+  "%c[O] color:#FFBC2D ParticipantStore.onlineUsers - added 1 : true",
+  "%c[A]%c ParticipantStore.onlineUserSet(%o, %o) color:#FF6157 color:inherit 2 true",
+  "%c[O] color:#FFBC2D ParticipantStore.onlineUsers - added 2 : true",
+  "%c[A]%c ParticipantStore.onlineUserDelete(%o) color:#FF6157 color:inherit 1",
+  "%c[O] color:#FFBC2D ParticipantStore.onlineUsers - deleted 1",
+  "%c[A]%c ParticipantStore.onlineUserSet(%o, %o) color:#FF6157 color:inherit 2 false",
+  "%c[O] color:#FFBC2D ParticipantStore.onlineUsers - updated 2 value true -> false",
+]
+`;
+
+exports[`makeLoggable logs observable set 1`] = `
+Array [
+  "%c[A]%c ParticipantStore.adminUserAdd(%o) color:#FF6157 color:inherit 1",
+  "%c[O] color:#FFBC2D ParticipantStore.adminUsers - added 1",
+  "%c[A]%c ParticipantStore.adminUserAdd(%o) color:#FF6157 color:inherit 2",
+  "%c[O] color:#FFBC2D ParticipantStore.adminUsers - added 2",
+  "%c[A]%c ParticipantStore.adminUserAdd(%o) color:#FF6157 color:inherit 2",
+  "%c[A]%c ParticipantStore.adminUserAdd(%o) color:#FF6157 color:inherit 3",
+  "%c[O] color:#FFBC2D ParticipantStore.adminUsers - added 3",
+  "%c[A]%c ParticipantStore.adminUserDelete(%o) color:#FF6157 color:inherit 2",
+  "%c[O] color:#FFBC2D ParticipantStore.adminUsers - removed 2",
+  "%c[A]%c ParticipantStore.adminUserDelete(%o) color:#FF6157 color:inherit 3",
+  "%c[O] color:#FFBC2D ParticipantStore.adminUsers - removed 3",
 ]
 `;
 
 exports[`makeLoggable logs plain array changes correctly 1`] = `
 Array [
   "%c[A]%c StoreOnlyObservables.add() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Added:  1",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Added:  1",
   "%c[A]%c StoreOnlyObservables.add() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Added:  2",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Added:  2",
   "%c[A]%c StoreOnlyObservables.removeFirst() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Removed:  1",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Removed:  1",
   "%c[A]%c StoreOnlyObservables.removeLast() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Removed:  2",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Removed:  2",
   "%c[A]%c StoreOnlyObservables.add() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Added:  3",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Added:  3",
   "%c[A]%c StoreOnlyObservables.addAndRemoveSameAction() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Added:  4",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Removed:  3",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Added:  4",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Removed:  3",
   "%c[A]%c StoreOnlyObservables.spliceFirst() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Removed:  4",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Removed:  4",
   "%c[A]%c StoreOnlyObservables.setMultiple() color:#FF6157 color:inherit",
-  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers array has changed. Added:  1,2,3,4,5,6",
+  "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  has changed. Added:  1,2,3,4,5,6",
   "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  -> 1,2,3,4,5,6",
 ]
 `;
