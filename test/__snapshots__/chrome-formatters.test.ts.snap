@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChromeFormatters ArrayFormatter formats observable array 1`] = `null`;
+
+exports[`ChromeFormatters ArrayFormatter formats observable array 2`] = `
+Array [
+  "ol",
+  Object {
+    "style": "list-style-type: none; padding: 0; margin: 0 0 0 12px; font-style: normal",
+  },
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": Object {
+          "age": 23,
+          "name": "Test 1",
+        },
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": Object {
+          "age": 55,
+          "name": "Test 2",
+        },
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": Object {
+          "age": 99,
+          "name": "Test 2",
+        },
+      },
+    ],
+  ],
+]
+`;
+
+exports[`ChromeFormatters MapFormatter formats observable map 1`] = `
+Array [
+  "span",
+  Array [
+    "span",
+    Object {
+      "style": "color: rgb(232,98,0)",
+    },
+    "Map",
+  ],
+  Array [
+    "span",
+    "[2]",
+  ],
+]
+`;
+
+exports[`ChromeFormatters MapFormatter formats observable map 2`] = `
+Array [
+  "ol",
+  Object {
+    "style": "list-style-type: none; padding: 0; margin: 0 0 0 12px; font-style: normal",
+  },
+  Array [
+    "li",
+    Object {},
+    Array [
+      "object",
+      Object {
+        "object": "a",
+      },
+    ],
+    ": ",
+    Array [
+      "object",
+      Object {
+        "object": 1,
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Object {},
+    Array [
+      "object",
+      Object {
+        "object": "b",
+      },
+    ],
+    ": ",
+    Array [
+      "object",
+      Object {
+        "object": 2,
+      },
+    ],
+  ],
+]
+`;
+
+exports[`ChromeFormatters ObjectFormatter formats object 1`] = `
+Array [
+  "span",
+  Array [
+    "span",
+    Object {
+      "style": "color: rgb(232,98,0)",
+    },
+    "Object",
+  ],
+  Array [
+    "span",
+    "[2]",
+  ],
+]
+`;
+
+exports[`ChromeFormatters ObjectFormatter formats object 2`] = `
+Array [
+  "ol",
+  Object {
+    "style": "list-style-type: none; padding: 0; margin: 0 0 0 12px; font-style: normal",
+  },
+  Array [
+    "li",
+    Object {},
+    Array [
+      "object",
+      Object {
+        "object": "age",
+      },
+    ],
+    ": ",
+    Array [
+      "object",
+      Object {
+        "object": 23,
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Object {},
+    Array [
+      "object",
+      Object {
+        "object": "name",
+      },
+    ],
+    ": ",
+    Array [
+      "object",
+      Object {
+        "object": "Test",
+      },
+    ],
+  ],
+]
+`;
+
+exports[`ChromeFormatters SetFormatter formats observable set 1`] = `
+Array [
+  "span",
+  Array [
+    "span",
+    Object {
+      "style": "color: rgb(232,98,0)",
+    },
+    "Set",
+  ],
+  Array [
+    "span",
+    "[3]",
+  ],
+]
+`;
+
+exports[`ChromeFormatters SetFormatter formats observable set 2`] = `
+Array [
+  "ol",
+  Object {
+    "style": "list-style-type: none; padding: 0; margin: 0 0 0 12px; font-style: normal",
+  },
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": 1,
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": 2,
+      },
+    ],
+  ],
+  Array [
+    "li",
+    Array [
+      "object",
+      Object {
+        "object": 3,
+      },
+    ],
+  ],
+]
+`;

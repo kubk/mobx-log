@@ -11,9 +11,9 @@ const colors = {
 export class DefaultLogger implements Logger {
   constructor(private logWriter: LogWriter) {}
 
-  logObservable(event: ObservableEvent) {
+  logObservable(event: ObservableEvent): void {
     if (event.type === 'update') {
-      const info = [
+      const info: unknown[] = [
         '%c[O]',
         `color:${colors.orange}`,
         event.name,
@@ -30,10 +30,10 @@ export class DefaultLogger implements Logger {
         '%c[O]',
         `color:${colors.orange}`,
         event.name,
-        'array has changed.',
+        ' has changed.',
       ];
 
-      if (event.removed.length) {
+      if (event.removed?.length) {
         info.push('Removed: ', event.removed);
       }
       if (event.added.length) {
@@ -42,12 +42,48 @@ export class DefaultLogger implements Logger {
 
       this.logWriter.write(...info);
     }
+
+    if (event.type === 'map') {
+      const info: unknown[] = ['%c[O]', `color:${colors.orange}`, event.name];
+
+      if (event.mapType === 'add') {
+        info.push('- added', event.key, ':', event.value);
+      }
+      if (event.mapType === 'delete') {
+        info.push('- deleted', event.key);
+      }
+      if (event.mapType === 'update') {
+        info.push(
+          '- updated',
+          event.key,
+          'value',
+          event.oldValue,
+          '->',
+          event.value
+        );
+      }
+
+      this.logWriter.write(...info);
+    }
+
+    if (event.type === 'set') {
+      const info: unknown[] = ['%c[O]', `color:${colors.orange}`, event.name];
+
+      if (event.setType === 'add') {
+        info.push('- added', event.value);
+      }
+      if (event.setType === 'delete') {
+        info.push('- removed', event.value);
+      }
+
+      this.logWriter.write(...info);
+    }
   }
 
-  logAction(event: ActionEvent) {
+  logAction(event: ActionEvent): void {
     const formattedArguments =
       event.arguments.length > 0
-        ? '%o '.repeat(event.arguments.length).slice(0, -1)
+        ? '%o, '.repeat(event.arguments.length).slice(0, -2)
         : '';
 
     const info: unknown[] = [
@@ -60,8 +96,8 @@ export class DefaultLogger implements Logger {
     this.logWriter.write(...info);
   }
 
-  logComputed(event: ComputedEvent) {
-    const info = [
+  logComputed(event: ComputedEvent): void {
+    const info: unknown[] = [
       '%c[C]',
       `color:${colors.blue}`,
       event.name,

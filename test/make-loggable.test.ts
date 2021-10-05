@@ -70,6 +70,32 @@ class StoreOnlyObservables {
   }
 }
 
+class ParticipantStore {
+  onlineUsers = new Map<number, boolean>();
+  adminUsers = new Set<number>();
+
+  constructor() {
+    makeAutoObservable(this);
+    makeLoggable(this);
+  }
+
+  onlineUserSet(id: number, value: boolean) {
+    this.onlineUsers.set(id, value);
+  }
+
+  onlineUserDelete(id: number) {
+    this.onlineUsers.delete(id);
+  }
+
+  adminUserAdd(value: number) {
+    this.adminUsers.add(value);
+  }
+
+  adminUserDelete(value: number) {
+    this.adminUsers.delete(value);
+  }
+}
+
 class StoreWithoutLog {
   counter = 1;
 
@@ -165,6 +191,28 @@ describe('makeLoggable', () => {
     storeOnlyObservables.addAndRemoveSameAction();
     storeOnlyObservables.spliceFirst();
     storeOnlyObservables.setMultiple();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  });
+
+  it('logs observable and observable map', () => {
+    const store = new ParticipantStore();
+    store.onlineUserSet(1, true);
+    store.onlineUserSet(2, true);
+    store.onlineUserDelete(1);
+    store.onlineUserSet(2, false);
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  });
+
+  it('logs observable set', () => {
+    const store = new ParticipantStore();
+    store.adminUserAdd(1);
+    store.adminUserAdd(2);
+    store.adminUserAdd(2);
+    store.adminUserAdd(3);
+    store.adminUserDelete(2);
+    store.adminUserDelete(3);
 
     expect(collectingWriter.history).toMatchSnapshot();
   });
