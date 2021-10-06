@@ -100,6 +100,5 @@ configureMakeLoggable({
 - [mobx-react-devtools](https://github.com/mobxjs/mobx-react-devtools) is deprecated
 - [mobx-formatters](https://github.com/motion/mobx-formatters) doesn't support Map & Set. Also it's just a proxy formatter, not a logger
 
-### Credit
-All credit for Chrome formatting functionality goes to Nate Wienert and [this repo](https://github.com/motion/mobx-formatters). Thank you.
-
+### Example project
+This library has example project located in `./example` folder. It is used for development purposes. To run it go to `./example` folder and run `npm run start`.
