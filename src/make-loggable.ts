@@ -7,6 +7,8 @@ import {
   ObjectFormatter,
   SetFormatter,
 } from './chrome-formatters';
+import { getStoreName } from './store';
+import { isObservable } from 'mobx';
 
 declare global {
   interface Window {
@@ -21,9 +23,17 @@ const firstLetterLowerCase = (word: string) => {
   return word.charAt(0).toLowerCase() + word.slice(1);
 };
 
-export const makeLoggable = (store: Object) => {
+export const makeLoggable = <T extends {}>(store: T): T => {
   if (process.env.NODE_ENV === 'production') {
-    return;
+    return store;
+  }
+
+  if (!isObservable(store)) {
+    throw new Error(
+      'mobx-log: store is not observable: ' +
+        JSON.stringify(store, null, 2) +
+        '. Make sure you called makeAutoObservable/makeObservable before calling makeLoggable'
+    );
   }
 
   if (!spyListener) {
@@ -42,30 +52,15 @@ export const makeLoggable = (store: Object) => {
     }
   }
 
-  const storeName = store.constructor.name;
+  const storeName = getStoreName(store);
 
   if (config.storeConsoleAccess) {
-    if (window.store === undefined) {
-      window.store = {};
-    }
+    window.store = window.store || {};
     const storeKey = firstLetterLowerCase(storeName);
-    if (window.store[storeKey] === undefined) {
-      window.store[storeKey] = store;
-    } else {
-      // If the key is not empty there is already a store with the same name added to window object
-      // Let's turn it into an array of stores to not lose any store
-      if (!Array.isArray(window.store[storeKey])) {
-        window.store[storeKey] = [window.store[storeKey]];
-      }
-      const storeList = window.store[storeKey];
-      if (!Array.isArray(storeList)) {
-        throw new Error(
-          'TypeScript check. Should not be reached. Please file an issue if you encounter this'
-        );
-      }
-      storeList.push(store);
-    }
+    window.store[storeKey] = store;
   }
 
   spyListener.addFilterByStoreName(storeName);
+
+  return store;
 };

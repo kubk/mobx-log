@@ -93,6 +93,42 @@ configureMakeLoggable({
 });
 ```
 
+### Usage with function factories
+With Mobx 6 you can create stores without classes using makeAutoObservable / makeObservable:
+
+```typescript 
+export const createDoubler = () => {
+  return makeAutoObservable({
+    value: 0,
+    get double() {
+      return this.value * 2
+    },
+    increment() {
+      this.value++
+    }
+  })
+}
+```
+
+You can also log such stores using `makeLoggable`:
+
+```diff 
+export const createDoubler = () => {
++ return makeLoggable(makeAutoObservable({
++   loggableName: 'doubler', // <-- Required. You'll get an exception with a clear error message if you forget about it
+    value: 0,
+    get double() {
+      return this.value * 2
+    },
+    increment() {
+      this.value++
+    }
++  }))
+}
+```
+
+The store also become available in console if you turn on `storeConsoleAccess` option.
+
 ### How it is different from alternatives?
 - [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals.
 - [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is not maintained anymore. It also doesn't show computeds.
