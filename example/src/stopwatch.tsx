@@ -4,6 +4,8 @@ import { observer, useLocalObservable } from 'mobx-react-lite';
 import { StopwatchStore } from './stopwatch-store';
 import { FormStore } from './form-store';
 import { ParticipantStore } from './participant-store';
+import { createThemeStore } from './create-theme-store';
+import { useLoggableLocalObservable } from '../../src';
 
 export const Stopwatch = observer(() => {
   const [stopwatch] = useState(() => new StopwatchStore());
@@ -14,10 +16,12 @@ export const Stopwatch = observer(() => {
       step: stopwatch.step,
     });
   });
-  const themeStore = useLocalObservable(() => ({
-    theme: null as 'dark' | 'light' | null,
-    switch(theme: 'dark' | 'light') {
-      this.theme = theme;
+  const [themeStore] = useState(createThemeStore);
+  const counterStore = useLoggableLocalObservable(() => ({
+    loggableName: 'counter',
+    count: 0,
+    increment() {
+      this.count++;
     },
   }));
   const [participantStore] = useState(() => new ParticipantStore());

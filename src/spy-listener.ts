@@ -1,6 +1,7 @@
 import { comparer, spy } from 'mobx';
 import type { PureSpyEvent } from 'mobx/dist/core/spy';
 import { Logger } from './types';
+import { getStoreName, isStore } from './store';
 
 export class SpyListener {
   private filtersByClass: string[] = [];
@@ -59,12 +60,19 @@ export class SpyListener {
       if (typeof event.object !== 'object') {
         return;
       }
-      const storeName = event.object?.constructor.name ?? '<unnamed store>';
+      if (!isStore(event.object)) {
+        return;
+      }
+      const storeName = getStoreName(event.object);
       if (!this.filtersByClass.includes(storeName)) {
         return;
       }
+
+      const action =
+        'loggableName' in event.object ? event.name.split('.')[1] : event.name;
+
       logger.logAction({
-        name: `${storeName}.${event.name}`,
+        name: `${storeName}.${action}`,
         arguments: event.arguments,
       });
       return;

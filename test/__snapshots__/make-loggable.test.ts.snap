@@ -92,3 +92,11 @@ Array [
   "%c[O] color:#FFBC2D StoreOnlyObservables.numbers  -> 1,2,3,4,5,6",
 ]
 `;
+
+exports[`makeLoggable works with factory function store 1`] = `
+Array [
+  "%c[A]%c counter.increment() color:#FF6157 color:inherit",
+  "%c[A]%c counter.increment() color:#FF6157 color:inherit",
+  "%c[A]%c counter.increment() color:#FF6157 color:inherit",
+]
+`;

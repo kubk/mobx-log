@@ -8,3 +8,4 @@ export type {
 } from './types';
 export { DefaultLogWriter } from './log-writer';
 export { configureMakeLoggable } from './config';
+export { useLoggableLocalObservable } from './use-loggable-local-observable';

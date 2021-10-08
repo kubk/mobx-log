@@ -48,7 +48,7 @@ describe('configureMakeLoggable', () => {
     new Todo();
 
     expect(Object.keys(window.store!)).toHaveLength(2);
-    expect(Array.isArray(window.store!['todo'])).toBeTruthy();
-    expect(window.store!['todo']).toHaveLength(2);
+    expect(typeof window.store!['todo'] === 'object').toBeTruthy();
+    expect(Object.keys(window.store!['todo'])).toHaveLength(1);
   });
 });
