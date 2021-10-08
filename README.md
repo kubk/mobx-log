@@ -5,7 +5,7 @@
 [![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode. 
+Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. Supports `useLocalObservable` and stores created with a [factory function](https://mobx.js.org/observable-state.html#makeobservable). It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode. 
 
 ### Installation
 
@@ -93,7 +93,7 @@ configureMakeLoggable({
 });
 ```
 
-### Usage with function factories
+### Usage with factory functions
 With Mobx 6 you can create stores without classes using makeAutoObservable / makeObservable:
 
 ```typescript 
@@ -112,10 +112,10 @@ export const createDoubler = () => {
 
 You can also log such stores using `makeLoggable`:
 
-```diff 
+```typescript
 export const createDoubler = () => {
-+ return makeLoggable(makeAutoObservable({
-+   loggableName: 'doubler', // <-- Required. You'll get an exception with a clear error message if you forget about it
+  return makeLoggable(makeAutoObservable({
+    loggableName: 'doubler', // <-- Required. You'll get an exception with a clear error message if you forget about it
     value: 0,
     get double() {
       return this.value * 2
@@ -123,8 +123,37 @@ export const createDoubler = () => {
     increment() {
       this.value++
     }
-+  }))
+  }))
 }
+```
+
+The store also become available in console if you turn on `storeConsoleAccess` option.
+
+### Usage with `useLocalObservable`
+
+Before:
+```typescript 
+import { useLocalObservable } from 'mobx-react-lite'
+
+...
+
+const counterStore = useLocalObservable(() => {
+  count: 0,
+  increment: () => this.count++,
+})
+```
+
+After:
+```typescript 
+import { useLoggableLocalObservable } from 'mobx-log'
+
+...
+
+const counterStore = useLoggableLocalObservable(() => {
+  loggableName: 'counter', // <-- Required. You'll get TS type error or runtime exception (if you aren't using TS) if you forget about it
+  count: 0,
+  increment: () => this.count++,
+})
 ```
 
 The store also become available in console if you turn on `storeConsoleAccess` option.

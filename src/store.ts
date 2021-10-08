@@ -2,6 +2,10 @@ export type Store = {
   [key: string]: unknown;
 };
 
+export const isStore = (store: unknown): store is Store => {
+  return store instanceof Object;
+};
+
 const getStoreType = (store: Store): 'object' | 'classInstance' => {
   if (store.constructor.name === 'Object') {
     return 'object';
@@ -25,8 +29,4 @@ export const getStoreName = (store: Store): string => {
     case 'classInstance':
       return store.constructor.name;
   }
-};
-
-export const isStore = (store: unknown): store is Store => {
-  return store instanceof Object;
 };

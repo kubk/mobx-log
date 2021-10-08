@@ -59,7 +59,7 @@ const renderIterableBody = (
   mapper: (val: [string, unknown]) => unknown
 ): Body => {
   if (isObservableMap(collection) || isObservableSet(collection)) {
-    // @ts-ignore
+    // @ts-expect-error
     const children = Array.from(toJS(collection)).map(mapper);
     return ['ol', styles.list, ...children];
   }

@@ -139,6 +139,18 @@ class TodoStore {
   }
 }
 
+export const createCounterStore = () => {
+  return makeLoggable(
+    makeAutoObservable({
+      loggableName: 'counter',
+      count: 0,
+      increment() {
+        this.count++;
+      },
+    })
+  );
+};
+
 describe('makeLoggable', () => {
   beforeEach(() => {
     collectingWriter.clear();
@@ -215,5 +227,42 @@ describe('makeLoggable', () => {
     store.adminUserDelete(3);
 
     expect(collectingWriter.history).toMatchSnapshot();
+  });
+
+  it('works with factory function store', () => {
+    const store = createCounterStore();
+    store.increment();
+    store.increment();
+    store.increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  });
+
+  it('factory function store with no loggable name throws', () => {
+    const createCounterWithoutLoggableName = () => {
+      return makeLoggable(
+        makeAutoObservable({
+          count: 0,
+          increment() {
+            this.count++;
+          },
+        })
+      );
+    };
+
+    expect(createCounterWithoutLoggableName).toThrow(Error);
+  });
+
+  it('non observable factory function store throws', () => {
+    const createCounterNotObservable = () => {
+      return makeLoggable({
+        count: 0,
+        increment() {
+          this.count++;
+        },
+      });
+    };
+
+    expect(createCounterNotObservable).toThrow(Error);
   });
 });
