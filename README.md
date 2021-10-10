@@ -115,7 +115,7 @@ You can also log such stores using `makeLoggable`:
 ```typescript
 export const createDoubler = () => {
   return makeLoggable(makeAutoObservable({
-    loggableName: 'doubler', // <-- Required. You'll get an exception with a clear error message if you forget about it
+    loggableName: 'doubler', // <-- Required
     value: 0,
     get double() {
       return this.value * 2
@@ -150,7 +150,7 @@ import { useLoggableLocalObservable } from 'mobx-log'
 ...
 
 const counterStore = useLoggableLocalObservable(() => {
-  loggableName: 'counter', // <-- Required. You'll get TS type error or runtime exception (if you aren't using TS) if you forget about it
+  loggableName: 'counter', // <-- Required. You'll get TS type error if you forget about it
   count: 0,
   increment: () => this.count++,
 })

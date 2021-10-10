@@ -250,7 +250,7 @@ describe('makeLoggable', () => {
       );
     };
 
-    expect(createCounterWithoutLoggableName).toThrow(Error);
+    expect(createCounterWithoutLoggableName).not.toThrow(Error);
   });
 
   it('non observable factory function store throws', () => {

@@ -13,18 +13,12 @@ const getStoreType = (store: Store): 'object' | 'classInstance' => {
   return 'classInstance';
 };
 
-export const getStoreName = (store: Store): string => {
+export const getStoreName = (store: Store): string | null => {
   switch (getStoreType(store)) {
     case 'object': {
-      if (
-        !('loggableName' in store) ||
-        typeof store.loggableName !== 'string'
-      ) {
-        throw new Error(
-          'mobx-log error: store name is undefined. Have you forgotten to pass loggableName as a string?'
-        );
-      }
-      return store.loggableName;
+      return 'loggableName' in store && typeof store.loggableName === 'string'
+        ? store.loggableName
+        : null;
     }
     case 'classInstance':
       return store.constructor.name;

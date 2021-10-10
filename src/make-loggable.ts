@@ -53,6 +53,9 @@ export const makeLoggable = <T extends {}>(store: T): T => {
   }
 
   const storeName = getStoreName(store);
+  if (storeName === null) {
+    return store;
+  }
 
   if (config.storeConsoleAccess) {
     window.store = window.store || {};

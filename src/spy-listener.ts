@@ -64,7 +64,7 @@ export class SpyListener {
         return;
       }
       const storeName = getStoreName(event.object);
-      if (!this.filtersByClass.includes(storeName)) {
+      if (storeName === null || !this.filtersByClass.includes(storeName)) {
         return;
       }
 
