@@ -93,6 +93,13 @@ Array [
 ]
 `;
 
+exports[`makeLoggable logs store with destructuring 1`] = `
+Array [
+  "%c[O] color:#FFBC2D StoreDestructuring.value 0 -> 1",
+  "%c[O] color:#FFBC2D StoreDestructuring.value 1 -> 2",
+]
+`;
+
 exports[`makeLoggable works with factory function store 1`] = `
 Array [
   "%c[A]%c counter.increment() color:#FF6157 color:inherit",

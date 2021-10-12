@@ -57,9 +57,6 @@ export class SpyListener {
     }
 
     if (event.type === 'action') {
-      if (typeof event.object !== 'object') {
-        return;
-      }
       if (!isStore(event.object)) {
         return;
       }

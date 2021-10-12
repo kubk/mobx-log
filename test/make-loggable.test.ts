@@ -139,6 +139,19 @@ class TodoStore {
   }
 }
 
+class StoreDestructuring {
+  value = 0;
+
+  constructor() {
+    makeAutoObservable(this);
+    makeLoggable(this);
+  }
+
+  increment = () => {
+    this.value++;
+  }
+}
+
 export const createCounterStore = () => {
   return makeLoggable(
     makeAutoObservable({
@@ -265,4 +278,14 @@ describe('makeLoggable', () => {
 
     expect(createCounterNotObservable).toThrow(Error);
   });
+
+  it('logs store with destructuring', () => {
+    const store = new StoreDestructuring();
+    const { increment } = store;
+
+    increment();
+    increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  })
 });
