@@ -61,7 +61,7 @@ export class StopwatchStore {
     this.start();
   }
 
-  setDiff(diff: number) {
-    this.step = diff;
+  setStep(step: number) {
+    this.step = step;
   }
 }
