@@ -167,3 +167,6 @@ The store also become available in console if you turn on `storeConsoleAccess` o
 
 ### Example project
 This library has example project located in `./example` folder. It is used for development purposes. To run it go to `./example` folder and run `npm run start`.
+
+### Store destructuring
+Prior to Mobx 6.3.4 bound actions didn't appear in the log. If you are using store destructuring and want your actions to appear in the log please update your Mobx to 6.3.4. See the discussion for details: https://github.com/mobxjs/mobx/discussions/3140
