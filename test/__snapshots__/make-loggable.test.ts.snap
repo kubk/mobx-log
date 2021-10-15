@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`makeLoggable does not log action with class properties 1`] = `
+Array [
+  "%c[O] color:#FFBC2D StoreDestructuringClassProperties.value 0 -> 1",
+  "%c[O] color:#FFBC2D StoreDestructuringClassProperties.value 1 -> 2",
+]
+`;
+
 exports[`makeLoggable logs 1`] = `
 Array [
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
@@ -22,6 +29,15 @@ Array [
   "%c[A]%c StoreWithComputed.increment() color:#FF6157 color:inherit",
   "%c[O] color:#FFBC2D StoreWithComputed.value 2 -> 3",
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 false -> true",
+]
+`;
+
+exports[`makeLoggable logs action with { autoBind: true } 1`] = `
+Array [
+  "%c[A]%c StoreDestructuringAutoBind.increment() color:#FF6157 color:inherit",
+  "%c[O] color:#FFBC2D StoreDestructuringAutoBind.value 0 -> 1",
+  "%c[A]%c StoreDestructuringAutoBind.increment() color:#FF6157 color:inherit",
+  "%c[O] color:#FFBC2D StoreDestructuringAutoBind.value 1 -> 2",
 ]
 `;
 

@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { StopwatchStore } from './stopwatch-store';
 import { FormStore } from './form-store';
 import { ParticipantStore } from './participant-store';
 import { createThemeStore } from './create-theme-store';
-import { useLoggableLocalObservable } from '../../src';
+import { makeLoggable, useLoggableLocalObservable } from '../../src';
+import { makeAutoObservable, spy } from 'mobx';
 
 export const Stopwatch = observer(() => {
   const [stopwatch] = useState(() => new StopwatchStore());

@@ -139,18 +139,6 @@ class TodoStore {
   }
 }
 
-class StoreDestructuring {
-  value = 0;
-
-  constructor() {
-    makeAutoObservable(this);
-    makeLoggable(this);
-  }
-
-  increment = () => {
-    this.value++;
-  }
-}
 
 export const createCounterStore = () => {
   return makeLoggable(
@@ -279,8 +267,44 @@ describe('makeLoggable', () => {
     expect(createCounterNotObservable).toThrow(Error);
   });
 
-  it('logs store with destructuring', () => {
-    const store = new StoreDestructuring();
+  it('does not log action with class properties', () => {
+    class StoreDestructuringClassProperties {
+      value = 0;
+
+      constructor() {
+        makeAutoObservable(this);
+        makeLoggable(this);
+      }
+
+      increment = () => {
+        this.value++;
+      }
+    }
+
+    const store = new StoreDestructuringClassProperties();
+    const { increment } = store;
+
+    increment();
+    increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  })
+
+  it('logs action with { autoBind: true }', () => {
+    class StoreDestructuringAutoBind {
+      value = 0;
+
+      constructor() {
+        makeAutoObservable(this, {}, { autoBind: true });
+        makeLoggable(this);
+      }
+
+      increment() {
+        this.value++;
+      }
+    }
+
+    const store = new StoreDestructuringAutoBind();
     const { increment } = store;
 
     increment();
