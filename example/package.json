@@ -2,13 +2,13 @@
   "name": "my-vite-app",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
+    "start": "vite --force",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.22",
-    "mobx": "^6.3.3",
+    "mobx": "^6.3.5",
     "mobx-logger": "^0.7.1",
     "mobx-react-devtools": "^6.1.1",
     "mobx-react-lite": "^3.2.1",

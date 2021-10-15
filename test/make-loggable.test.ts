@@ -139,6 +139,7 @@ class TodoStore {
   }
 }
 
+
 export const createCounterStore = () => {
   return makeLoggable(
     makeAutoObservable({
@@ -265,4 +266,50 @@ describe('makeLoggable', () => {
 
     expect(createCounterNotObservable).toThrow(Error);
   });
+
+  it('does not log action with class properties', () => {
+    class StoreDestructuringClassProperties {
+      value = 0;
+
+      constructor() {
+        makeAutoObservable(this);
+        makeLoggable(this);
+      }
+
+      increment = () => {
+        this.value++;
+      }
+    }
+
+    const store = new StoreDestructuringClassProperties();
+    const { increment } = store;
+
+    increment();
+    increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  })
+
+  it('logs action with { autoBind: true }', () => {
+    class StoreDestructuringAutoBind {
+      value = 0;
+
+      constructor() {
+        makeAutoObservable(this, {}, { autoBind: true });
+        makeLoggable(this);
+      }
+
+      increment() {
+        this.value++;
+      }
+    }
+
+    const store = new StoreDestructuringAutoBind();
+    const { increment } = store;
+
+    increment();
+    increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  })
 });

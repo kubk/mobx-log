@@ -10,9 +10,13 @@ export class StopwatchStore {
   lastIntervalId: number | null = null;
 
   constructor() {
-    makeAutoObservable(this, {
-      lastIntervalId: false,
-    });
+    makeAutoObservable(
+      this,
+      {
+        lastIntervalId: false,
+      },
+      { autoBind: true }
+    );
     makeLoggable(this);
   }
 
