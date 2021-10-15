@@ -99,7 +99,7 @@ export const Stopwatch = observer(() => {
           <br />
           <button
             onClick={() => {
-              stopwatch.setDiff(form.getField('step').value);
+              stopwatch.setStep(form.getField('step').value);
             }}
           >
             set step
