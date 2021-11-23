@@ -5,7 +5,7 @@
 [![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. Supports `useLocalObservable` and stores created with a [factory function](https://mobx.js.org/observable-state.html#makeobservable). It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode.
+Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. Supports `useLocalObservable` and stores created with a [factory function](https://github.com/kubk/mobx-log#usage-with-factory-functions). It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode.
 ![screenshot](.github/screely.png)
 ### Installation
 
