@@ -159,8 +159,8 @@ const counterStore = useLoggableLocalObservable(() => {
 The store also become available in console if you turn on `storeConsoleAccess` option.
 
 ### How it is different from alternatives?
-- [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show observables and computeds with Mobx 6 due to changes in Mobx internals.
-- [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is not maintained anymore. It also doesn't show computeds.
+- [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show [observables and computeds](https://github.com/winterbe/mobx-logger/issues/34) with Mobx 6 due to changes in Mobx internals.
+- [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is [not maintained](https://github.com/zalmoxisus/mobx-remotedev/issues/55) anymore. It also doesn't show computeds.
 - [mobx-devtools](https://github.com/mobxjs/mobx-devtools) does not show changes in computeds
 - [mobx-react-devtools](https://github.com/mobxjs/mobx-react-devtools) is deprecated
 - [mobx-formatters](https://github.com/motion/mobx-formatters) doesn't support Map & Set. Also it's just a proxy formatter, not a logger
