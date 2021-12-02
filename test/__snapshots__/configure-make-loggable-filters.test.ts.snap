@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`configureMakeLoggable - filters respects filters 1`] = `
+Array [
+  "%c[C] color:#28B7F6 Counter.isEven [object Object] -> true",
+  "%c[C] color:#28B7F6 Counter.isEven true -> false",
+  "%c[C] color:#28B7F6 Counter.isEven false -> true",
+]
+`;

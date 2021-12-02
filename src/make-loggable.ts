@@ -37,7 +37,7 @@ export const makeLoggable = <T extends {}>(store: T): T => {
   }
 
   if (!spyListener) {
-    spyListener = new SpyListener(config.logger, config.debug);
+    spyListener = new SpyListener(config.logger, config.debug, config.filters);
     spyListener.listen();
 
     const isBrowser = typeof window !== 'undefined';
