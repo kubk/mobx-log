@@ -146,3 +146,16 @@ export class SetFormatter implements ChromeFormatter<Set<unknown>> {
     return renderIterableBody(argument, (value) => ['li', reference(value)]);
   }
 }
+
+export const installMobxFormatters = () => {
+  const isBrowser = typeof window !== 'undefined';
+  if (isBrowser) {
+    window.devtoolsFormatters = window.devtoolsFormatters || [];
+    window.devtoolsFormatters.push(
+      new ArrayFormatter(),
+      new ObjectFormatter(),
+      new MapFormatter(),
+      new SetFormatter()
+    );
+  }
+}
