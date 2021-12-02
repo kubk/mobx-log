@@ -2,11 +2,16 @@ import { comparer, spy } from 'mobx';
 import type { PureSpyEvent } from 'mobx/dist/core/spy';
 import { Logger } from './types';
 import { getStoreName, isStore } from './store';
+import { Config } from './config';
 
 export class SpyListener {
   private filtersByClass: string[] = [];
 
-  constructor(private logger: Logger, private debug = false) {}
+  constructor(
+    private logger: Logger,
+    private debug = false,
+    private filters: Config['filters']
+  ) {}
 
   listen() {
     spy(this.log);
@@ -21,6 +26,9 @@ export class SpyListener {
 
     if (event.type === 'update') {
       if (event.observableKind === 'computed') {
+        if (!this.filters.computeds) {
+          return;
+        }
         const equals = comparer.default;
         if (!equals(event.oldValue, event.newValue)) {
           const computedFullName = this.parseDebugName(event.debugObjectName);
@@ -36,6 +44,9 @@ export class SpyListener {
         }
       }
       if (event.observableKind === 'object') {
+        if (!this.filters.observables) {
+          return;
+        }
         const observableFullName = this.parseDebugName(event.debugObjectName);
         const [storeName] = observableFullName.split('.');
         if (!this.filtersByClass.includes(storeName)) {
@@ -57,7 +68,7 @@ export class SpyListener {
     }
 
     if (event.type === 'action') {
-      if (!isStore(event.object)) {
+      if (!isStore(event.object) || !this.filters.actions) {
         return;
       }
       const storeName = getStoreName(event.object);
@@ -76,6 +87,9 @@ export class SpyListener {
     }
 
     if ('observableKind' in event) {
+      if (!this.filters.observables) {
+        return;
+      }
       if (event.observableKind === 'array') {
         const observableFullName = this.parseDebugName(event.debugObjectName);
         const [storeName, key] = observableFullName.split('.');

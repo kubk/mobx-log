@@ -36,7 +36,7 @@ class SomeStore {
 In order to customize `mobx-log` use `configureMakeLoggable` function.
 
 ---
-- **Recommended**: Access stores as global variables in browser console:
+**Recommended**: Access stores as global variables in browser console:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -49,7 +49,6 @@ After it all the stores marked as loggable become accessible as global variables
 ```js
 class AuthStore {
   constructor() {
-    ...
     makeLoggable(this);
   }
 }
@@ -58,7 +57,7 @@ class AuthStore {
 Then you can type `store.authStore` in your browser console. Feel free to log store, call actions and computeds in the console. Works only in dev mode.
 
 ---
-- Enable debug mode  - log all Mobx spy reports. Useful for library contributors:
+Enable debug mode  - log all Mobx spy reports. Useful for library contributors:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -67,7 +66,20 @@ configureMakeLoggable({
 });
 ```
 ---
-- Customize logger output. Example - add time for each log entry:
+Log only observables / computeds / actions:
+```js
+import { configureMakeLoggable } from 'mobx-log';
+
+configureMakeLoggable({
+  filters: {
+    computeds: true,
+    actions: true,
+    observable: false,
+  }
+});
+```
+---
+Customize logger output. Example - add time for each log entry:
 ```typescript
 
 import { configureMakeLoggable, DefaultLogger, LogWriter } from 'mobx-log';
