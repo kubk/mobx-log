@@ -66,7 +66,7 @@ configureMakeLoggable({
 });
 ```
 ---
-Log only observables / computeds / actions:
+Log observables / computeds / actions conditionally:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -74,7 +74,7 @@ configureMakeLoggable({
   filters: {
     computeds: true,
     actions: true,
-    observable: false,
+    observables: false,
   }
 });
 ```
