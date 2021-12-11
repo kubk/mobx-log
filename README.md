@@ -170,6 +170,17 @@ const counterStore = useLoggableLocalObservable(() => {
 
 The store also become available in console if you turn on `storeConsoleAccess` option.
 
+### Using formatters without using logger
+This package installs Chrome formatters automatically after first `makeLoggable` call. If you'd like to use Chrome formatters only without logging functionality you can call `applyFormatters`:
+
+```js
+import { applyFormatters } from 'mobx-log';
+
+applyFormatters();
+```
+
+You need to call this function only once.
+
 ### How it is different from alternatives?
 - [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show [observables and computeds](https://github.com/winterbe/mobx-logger/issues/34) with Mobx 6 due to changes in Mobx internals.
 - [mobx-remotedev](https://github.com/zalmoxisus/mobx-remotedev/issues) is [not maintained](https://github.com/zalmoxisus/mobx-remotedev/issues/55) anymore. It also doesn't show computeds.
