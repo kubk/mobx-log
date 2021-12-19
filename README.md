@@ -35,8 +35,9 @@ class SomeStore {
 
 In order to customize `mobx-log` use `configureMakeLoggable` function.
 
----
-**Recommended**: Access stores as global variables in browser console:
+### Access stores as global variables in browser console.
+
+It is a recommended option: 
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -56,17 +57,9 @@ class AuthStore {
 
 Then you can type `store.authStore` in your browser console. Feel free to log store, call actions and computeds in the console. Works only in dev mode.
 
----
-Enable debug mode  - log all Mobx spy reports. Useful for library contributors:
-```js
-import { configureMakeLoggable } from 'mobx-log';
+### Log observables / computeds / actions conditionally
 
-configureMakeLoggable({
-  debug: true
-});
-```
----
-Log observables / computeds / actions conditionally:
+An example how to log only `actions` and `computeds`:
 ```js
 import { configureMakeLoggable } from 'mobx-log';
 
@@ -78,8 +71,33 @@ configureMakeLoggable({
   }
 });
 ```
----
-Customize logger output. Example - add time for each log entry:
+### Log observables / computeds / actions of a specific store.
+
+An example how to log only changes in `computeds` of a store `Counter`.
+
+```js
+import { makeLoggable } from 'mobx-log';
+
+class Counter {
+  value = 0;
+  
+  constructor() {
+    makeAutoObservable(this);
+    makeLoggable(this, {
+      filters: {
+        events: {
+          computeds: true,
+          observables: false,
+          actions: false,
+        },
+      },
+    });
+  }
+}
+```
+### Customize logger output
+
+Example - add time for each log entry:
 ```typescript
 
 import { configureMakeLoggable, DefaultLogger, LogWriter } from 'mobx-log';
@@ -102,6 +120,17 @@ class MyLogWriter implements LogWriter {
 
 configureMakeLoggable({
   logger: new DefaultLogger(new MyLogWriter()),
+});
+```
+
+### Enable debug mode  - log all Mobx spy reports.
+
+Useful for library contributors:
+```js
+import { configureMakeLoggable } from 'mobx-log';
+
+configureMakeLoggable({
+  debug: true
 });
 ```
 

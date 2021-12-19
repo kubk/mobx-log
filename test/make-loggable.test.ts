@@ -2,6 +2,7 @@ import { autorun, makeAutoObservable } from 'mobx';
 import { DefaultLogger } from '../src';
 import { configureMakeLoggable, makeLoggable } from '../src';
 import { CollectingLogWriter } from '../src/log-writer';
+import { StoreEventFilters } from '../src/spy-listener';
 
 const collectingWriter = new CollectingLogWriter();
 
@@ -138,7 +139,6 @@ class TodoStore {
     todo.isDone = true;
   }
 }
-
 
 export const createCounterStore = () => {
   return makeLoggable(
@@ -278,7 +278,7 @@ describe('makeLoggable', () => {
 
       increment = () => {
         this.value++;
-      }
+      };
     }
 
     const store = new StoreDestructuringClassProperties();
@@ -288,7 +288,7 @@ describe('makeLoggable', () => {
     increment();
 
     expect(collectingWriter.history).toMatchSnapshot();
-  })
+  });
 
   it('logs action with { autoBind: true }', () => {
     class StoreDestructuringAutoBind {
@@ -311,5 +311,62 @@ describe('makeLoggable', () => {
     increment();
 
     expect(collectingWriter.history).toMatchSnapshot();
-  })
+  });
+
+  it('can filter specific events of a store', () => {
+    class Counter {
+      value = 0;
+
+      constructor(eventFilters: StoreEventFilters) {
+        makeAutoObservable(this, {}, { autoBind: true });
+        makeLoggable(this, {
+          filters: {
+            events: eventFilters,
+          },
+        });
+      }
+
+      increment() {
+        this.value++;
+      }
+
+      get isEven() {
+        return this.value % 2 === 0;
+      }
+    }
+
+    const storeLogsOnlyObservablesAndComptueds = new Counter({
+      computeds: true,
+      actions: false,
+      observables: true,
+    });
+
+    let isEven = false;
+    autorun(() => {
+      isEven = storeLogsOnlyObservablesAndComptueds.isEven;
+    });
+
+    storeLogsOnlyObservablesAndComptueds.increment();
+    storeLogsOnlyObservablesAndComptueds.increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+
+    collectingWriter.clear();
+
+    const storeLogsOnlyActions = new Counter({
+      computeds: false,
+      actions: true,
+      observables: false,
+    });
+
+    let isOdd = false;
+    autorun(() => {
+      isOdd = !storeLogsOnlyActions.isEven;
+    });
+
+    storeLogsOnlyActions.increment();
+    storeLogsOnlyActions.increment();
+
+    expect(collectingWriter.history).toMatchSnapshot();
+  });
 });

@@ -1,4 +1,4 @@
-import { SpyListener } from './spy-listener';
+import { SpyListener, StoreEventFilters } from './spy-listener';
 import { config } from './global-config';
 import { installMobxFormatters, ChromeFormatter } from './chrome-formatters';
 import { getStoreName } from './store';
@@ -17,7 +17,14 @@ const firstLetterLowerCase = (word: string) => {
   return word.charAt(0).toLowerCase() + word.slice(1);
 };
 
-export const makeLoggable = <T extends {}>(store: T): T => {
+type PerStoreFilters = {
+  filters: { events: StoreEventFilters };
+};
+
+export const makeLoggable = <T extends {}>(
+  store: T,
+  perStoreConfig?: PerStoreFilters
+): T => {
   if (process.env.NODE_ENV === 'production') {
     return store;
   }
@@ -48,7 +55,20 @@ export const makeLoggable = <T extends {}>(store: T): T => {
     window.store[storeKey] = store;
   }
 
-  spyListener.addFilterByStoreName(storeName);
+  const actualPerStoreConfig = Object.assign(
+    {
+      filters: {
+        events: {
+          computeds: true,
+          actions: true,
+          observables: true,
+        },
+      },
+    },
+    perStoreConfig
+  );
+
+  spyListener.addFilterByStore(storeName, actualPerStoreConfig.filters.events);
 
   return store;
 };

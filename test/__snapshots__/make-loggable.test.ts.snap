@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`makeLoggable can filter specific events of a store 1`] = `
+Array [
+  "%c[C] color:#28B7F6 Counter.isEven [object Object] -> true",
+  "%c[O] color:#FFBC2D Counter.value 0 -> 1",
+  "%c[C] color:#28B7F6 Counter.isEven true -> false",
+  "%c[O] color:#FFBC2D Counter.value 1 -> 2",
+  "%c[C] color:#28B7F6 Counter.isEven false -> true",
+]
+`;
+
+exports[`makeLoggable can filter specific events of a store 2`] = `
+Array [
+  "%c[A]%c Counter.increment() color:#FF6157 color:inherit",
+  "%c[A]%c Counter.increment() color:#FF6157 color:inherit",
+]
+`;
+
 exports[`makeLoggable does not log action with class properties 1`] = `
 Array [
   "%c[O] color:#FFBC2D StoreDestructuringClassProperties.value 0 -> 1",

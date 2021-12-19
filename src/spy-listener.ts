@@ -4,20 +4,34 @@ import { Logger } from './types';
 import { getStoreName, isStore } from './store';
 import { GlobalConfig } from './global-config';
 
+const parseDebugName = (name: string) => {
+  return name.replace(/@\d+/, '');
+};
+
+export type StoreEventFilters = {
+  computeds: boolean;
+  observables: boolean;
+  actions: boolean;
+};
+
+type FiltersPerStore = {
+  [storeName in string]: StoreEventFilters;
+};
+
 export class SpyListener {
-  private filtersByClass: string[] = [];
+  private filtersPerStore: FiltersPerStore = {};
 
   constructor(
     private logger: Logger,
     private debug = false,
-    private filters: GlobalConfig['filters']
+    private globalFilters: GlobalConfig['filters']
   ) {}
 
   listen() {
     spy(this.log);
   }
 
-  private log = (event: PureSpyEvent) => {
+  log = (event: PureSpyEvent) => {
     const { logger } = this;
 
     if (this.debug) {
@@ -26,14 +40,14 @@ export class SpyListener {
 
     if (event.type === 'update') {
       if (event.observableKind === 'computed') {
-        if (!this.filters.computeds) {
+        if (!this.globalFilters.computeds) {
           return;
         }
         const equals = comparer.default;
         if (!equals(event.oldValue, event.newValue)) {
-          const computedFullName = this.parseDebugName(event.debugObjectName);
+          const computedFullName = parseDebugName(event.debugObjectName);
           const [storeName] = computedFullName.split('.');
-          if (!this.filtersByClass.includes(storeName)) {
+          if (!this.filtersPerStore[storeName]?.computeds) {
             return;
           }
           logger.logComputed({
@@ -43,13 +57,14 @@ export class SpyListener {
           });
         }
       }
+
       if (event.observableKind === 'object') {
-        if (!this.filters.observables) {
+        if (!this.globalFilters.observables) {
           return;
         }
-        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const observableFullName = parseDebugName(event.debugObjectName);
         const [storeName] = observableFullName.split('.');
-        if (!this.filtersByClass.includes(storeName)) {
+        if (!this.filtersPerStore[storeName]?.observables) {
           return;
         }
         // Mobx spy adds '[..]' to object name in case change happened inside array
@@ -68,11 +83,11 @@ export class SpyListener {
     }
 
     if (event.type === 'action') {
-      if (!isStore(event.object) || !this.filters.actions) {
+      if (!isStore(event.object) || !this.globalFilters.actions) {
         return;
       }
       const storeName = getStoreName(event.object);
-      if (storeName === null || !this.filtersByClass.includes(storeName)) {
+      if (storeName === null || !this.filtersPerStore[storeName]?.actions) {
         return;
       }
 
@@ -87,13 +102,14 @@ export class SpyListener {
     }
 
     if ('observableKind' in event) {
-      if (!this.filters.observables) {
+      if (!this.globalFilters.observables) {
         return;
       }
+
       if (event.observableKind === 'array') {
-        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const observableFullName = parseDebugName(event.debugObjectName);
         const [storeName, key] = observableFullName.split('.');
-        if (!this.filtersByClass.includes(storeName)) {
+        if (!this.filtersPerStore[storeName]?.observables) {
           return;
         }
         logger.logObservable({
@@ -105,10 +121,11 @@ export class SpyListener {
           added: event.added,
         });
       }
+
       if (event.observableKind === 'map') {
-        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const observableFullName = parseDebugName(event.debugObjectName);
         const [storeName, key] = observableFullName.split('.');
-        if (!this.filtersByClass.includes(storeName)) {
+        if (!this.filtersPerStore[storeName]?.observables) {
           return;
         }
         logger.logObservable({
@@ -120,10 +137,11 @@ export class SpyListener {
           mapType: event.type,
         });
       }
+
       if (event.observableKind === 'set') {
-        const observableFullName = this.parseDebugName(event.debugObjectName);
+        const observableFullName = parseDebugName(event.debugObjectName);
         const [storeName, key] = observableFullName.split('.');
-        if (!this.filtersByClass.includes(storeName)) {
+        if (!this.filtersPerStore[storeName]?.observables) {
           return;
         }
         const value =
@@ -143,11 +161,7 @@ export class SpyListener {
     }
   };
 
-  private parseDebugName(name: string) {
-    return name.replace(/@\d+/, '');
-  }
-
-  addFilterByStoreName(name: string) {
-    this.filtersByClass.push(name);
+  addFilterByStore(name: string, storeEventFilters: StoreEventFilters) {
+    this.filtersPerStore[name] = storeEventFilters;
   }
 }

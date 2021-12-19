@@ -12,7 +12,7 @@ configureMakeLoggable({
     observables: false,
     actions: false,
     computeds: true,
-  }
+  },
 });
 
 class Counter {
@@ -36,7 +36,7 @@ describe('configureMakeLoggable - filters', () => {
   it('respects filters', () => {
     const c = new Counter();
 
-    let isEven
+    let isEven;
     autorun(() => {
       isEven = c.isEven;
     });
