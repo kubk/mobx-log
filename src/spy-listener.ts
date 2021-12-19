@@ -2,7 +2,7 @@ import { comparer, spy } from 'mobx';
 import type { PureSpyEvent } from 'mobx/dist/core/spy';
 import { Logger } from './types';
 import { getStoreName, isStore } from './store';
-import { Config } from './config';
+import { GlobalConfig } from './global-config';
 
 export class SpyListener {
   private filtersByClass: string[] = [];
@@ -10,7 +10,7 @@ export class SpyListener {
   constructor(
     private logger: Logger,
     private debug = false,
-    private filters: Config['filters']
+    private filters: GlobalConfig['filters']
   ) {}
 
   listen() {

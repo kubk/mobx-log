@@ -2,7 +2,7 @@ import { DefaultLogger } from './default-logger';
 import { Logger } from './types';
 import { DefaultLogWriter } from './log-writer';
 
-export type Config = {
+export type GlobalConfig = {
   logger: Logger;
   debug: boolean;
   storeConsoleAccess: boolean;
@@ -10,10 +10,10 @@ export type Config = {
     computeds: boolean;
     actions: boolean;
     observables: boolean;
-  }
+  };
 };
 
-export const config: Config = {
+export const config: GlobalConfig = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   debug: false,
   storeConsoleAccess: false,
@@ -21,10 +21,10 @@ export const config: Config = {
     computeds: true,
     actions: true,
     observables: true,
-  }
+  },
 };
 
-export const configureMakeLoggable = (options: Partial<Config>) => {
+export const configureMakeLoggable = (options: Partial<GlobalConfig>) => {
   if (options.logger !== undefined) {
     config.logger = options.logger;
   }

@@ -147,7 +147,11 @@ export class SetFormatter implements ChromeFormatter<Set<unknown>> {
   }
 }
 
+let isMobxFormattersInstalled = false;
 export const installMobxFormatters = () => {
+  if (isMobxFormattersInstalled) {
+    return;
+  }
   const isBrowser = typeof window !== 'undefined';
   if (isBrowser) {
     window.devtoolsFormatters = window.devtoolsFormatters || [];
@@ -157,5 +161,6 @@ export const installMobxFormatters = () => {
       new MapFormatter(),
       new SetFormatter()
     );
+    isMobxFormattersInstalled = true;
   }
-}
+};

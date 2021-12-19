@@ -1,9 +1,6 @@
 import { SpyListener } from './spy-listener';
-import { config } from './config';
-import {
-  installMobxFormatters,
-  ChromeFormatter
-} from './chrome-formatters';
+import { config } from './global-config';
+import { installMobxFormatters, ChromeFormatter } from './chrome-formatters';
 import { getStoreName } from './store';
 import { isObservable } from 'mobx';
 
@@ -37,7 +34,7 @@ export const makeLoggable = <T extends {}>(store: T): T => {
     spyListener = new SpyListener(config.logger, config.debug, config.filters);
     spyListener.listen();
 
-    installMobxFormatters()
+    installMobxFormatters();
   }
 
   const storeName = getStoreName(store);
