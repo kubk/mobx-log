@@ -4,7 +4,10 @@
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
+    "outDir": "dist",
+    "declarationDir": "types",
     "declaration": true,
+    "emitDeclarationOnly": true,
     "sourceMap": true,
     "rootDir": "./src",
     "strict": true,
@@ -14,7 +17,6 @@
     "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
