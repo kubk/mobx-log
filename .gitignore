@@ -3,6 +3,7 @@
 node_modules
 .cache
 dist
+dist_
 .idea
 package-lock.json
 .parcel-cache
