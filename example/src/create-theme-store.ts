@@ -1,4 +1,3 @@
-import { makeLoggable } from '../../src';
 import { makeAutoObservable } from 'mobx';
 
 type Theme = 'dark' | 'light';
@@ -7,14 +6,11 @@ type Theme = 'dark' | 'light';
 const value = <T extends any>(argument: T) => argument;
 
 export const createThemeStore = () => {
-  return makeLoggable(
-    makeAutoObservable({
-      loggableName: 'themeStore',
-      test: [1, 2, 3],
-      theme: value<Theme | null>(null),
-      switch(theme: Theme) {
-        this.theme = theme;
-      },
-    })
-  );
+  return makeAutoObservable({
+    test: [1, 2, 3],
+    theme: value<Theme | null>(null),
+    switch(theme: Theme) {
+      this.theme = theme;
+    },
+  });
 };

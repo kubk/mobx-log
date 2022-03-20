@@ -9,13 +9,10 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.22",
     "mobx": "^6.3.5",
-    "mobx-logger": "^0.7.1",
-    "mobx-react-devtools": "^6.1.1",
     "mobx-react-lite": "^3.2.1",
     "prettier": "^2.4.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "use-amcharts": "^1.0.2"
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

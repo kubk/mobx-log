@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { StopwatchStore } from './stopwatch-store';
 import { FormStore } from './form-store';
 import { ParticipantStore } from './participant-store';
 import { createThemeStore } from './create-theme-store';
-import { makeLoggable, useLoggableLocalObservable } from '../../src';
-import { makeAutoObservable, spy } from 'mobx';
+import { useMakeLoggable } from '../../src';
 
 export const Stopwatch = observer(() => {
   const [stopwatch] = useState(() => new StopwatchStore());
@@ -17,15 +16,17 @@ export const Stopwatch = observer(() => {
       step: stopwatch.step,
     });
   });
-  const {start} = stopwatch;
+  const { start } = stopwatch;
   const [themeStore] = useState(createThemeStore);
-  const counterStore = useLoggableLocalObservable(() => ({
-    loggableName: 'counter',
-    count: 0,
+  useMakeLoggable(themeStore, 'themeStore');
+
+  const counter = useLocalObservable(() => ({
+    value: 0,
     increment() {
-      this.count++;
+      this.value++;
     },
   }));
+  useMakeLoggable(counter, 'counter');
   const [participantStore] = useState(() => new ParticipantStore());
 
   return (

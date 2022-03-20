@@ -178,29 +178,37 @@ import { useLocalObservable } from 'mobx-react-lite'
 
 ...
 
-const counterStore = useLocalObservable(() => {
-  count: 0,
-  increment: () => this.count++,
+const App = observer(() => {
+  const counterStore = useLocalObservable(() => {
+    count: 0,
+    increment: () => this.count++,
+  })
+
+  return ...
 })
 ```
 
 After:
 ```typescript 
-import { useLoggableLocalObservable } from 'mobx-log'
+import { useMakeLoggable } from 'mobx-log'
 
 ...
 
-const counterStore = useLoggableLocalObservable(() => {
-  loggableName: 'counter', // <-- Required. You'll get TS type error if you forget about it
-  count: 0,
-  increment: () => this.count++,
+const App = observer(() => {
+  const counterStore = useLocalObservable(() => {
+    count: 0,
+    increment: () => this.count++,
+  })
+  useMakeLoggable(counterStore, 'counter')
+
+  return ...
 })
 ```
 
 The store also become available in console if you turn on `storeConsoleAccess` option.
 
 ### Using formatters without using logger
-This package installs Chrome formatters automatically after first `makeLoggable` call. If you'd like to use Chrome formatters only without logging functionality you can call `applyFormatters`:
+This package installs Chrome formatters automatically after first `makeLoggable` call. If you'd like to use Chrome formatters only, without the logging functionality you can call `applyFormatters`:
 
 ```js
 import { applyFormatters } from 'mobx-log';
