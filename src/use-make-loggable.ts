@@ -1,8 +1,8 @@
-import { getStoreName, Store } from './store';
+import { getStoreName } from './store';
 import { useEffect } from 'react';
 import { makeLoggable } from './make-loggable';
 
-export const useMakeLoggable = (store: Store, name?: string) => {
+export const useMakeLoggable = (store: any, name?: string) => {
   useEffect(() => {
     if (!getStoreName(store)) {
       if (name) {
