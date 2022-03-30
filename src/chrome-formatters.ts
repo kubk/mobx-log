@@ -71,7 +71,7 @@ const renderIterableBody = (
 export class ObjectFormatter implements ChromeFormatter<{}> {
   header(argument: {}): Header | null {
     return isObservableObject(argument)
-      ? renderIterableHeader(Object.keys(argument), 'Object')
+      ? renderIterableHeader(Object.keys(argument), argument?.constructor.name ?? 'Object')
       : null;
   }
 
