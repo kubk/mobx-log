@@ -8,6 +8,10 @@ const parseDebugName = (name: string) => {
   return name.replace(/@\d+/, '');
 };
 
+const isMobxCaughtException = (value: any) => {
+  return Object.prototype.toString.call(value) === '[object Object]' && value?.constructor?.name === 'CaughtException';
+};
+
 export type StoreEventFilters = {
   computeds: boolean;
   observables: boolean;
@@ -44,18 +48,22 @@ export class SpyListener {
           return;
         }
         const equals = comparer.default;
-        if (!equals(event.oldValue, event.newValue)) {
-          const computedFullName = parseDebugName(event.debugObjectName);
-          const [storeName] = computedFullName.split('.');
-          if (!this.filtersPerStore[storeName]?.computeds) {
-            return;
-          }
-          logger.logComputed({
-            name: computedFullName,
-            oldValue: event.oldValue,
-            newValue: event.newValue,
-          });
+        if (equals(event.oldValue, event.newValue)) {
+          return;
         }
+        if (isMobxCaughtException(event.oldValue)) {
+          return;
+        }
+        const computedFullName = parseDebugName(event.debugObjectName);
+        const [storeName] = computedFullName.split('.');
+        if (!this.filtersPerStore[storeName]?.computeds) {
+          return;
+        }
+        logger.logComputed({
+          name: computedFullName,
+          oldValue: event.oldValue,
+          newValue: event.newValue,
+        });
       }
 
       if (event.observableKind === 'object') {

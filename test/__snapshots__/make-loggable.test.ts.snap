@@ -2,7 +2,6 @@
 
 exports[`makeLoggable can filter specific events of a store 1`] = `
 Array [
-  "%c[C] color:#28B7F6 Counter.isEven [object Object] -> true",
   "%c[O] color:#FFBC2D Counter.value 0 -> 1",
   "%c[C] color:#28B7F6 Counter.isEven true -> false",
   "%c[O] color:#FFBC2D Counter.value 1 -> 2",
@@ -26,7 +25,6 @@ Array [
 
 exports[`makeLoggable logs 1`] = `
 Array [
-  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
   "%c[A]%c StoreWithComputed.increment() color:#FF6157 color:inherit",
   "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
@@ -36,7 +34,6 @@ Array [
 
 exports[`makeLoggable logs 2`] = `
 Array [
-  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
   "%c[A]%c StoreWithComputed.increment() color:#FF6157 color:inherit",
   "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
