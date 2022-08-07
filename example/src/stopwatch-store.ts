@@ -1,5 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from '../../src';
+import {
+  makeDevtoolsLoggable
+} from '../../src/redux-devtools/mobx-redux-devtools';
 
 export class StopwatchStore {
   countUp = true;
@@ -18,6 +21,7 @@ export class StopwatchStore {
       { autoBind: true }
     );
     makeLoggable(this);
+    makeDevtoolsLoggable(this)
   }
 
   start() {
@@ -51,7 +55,7 @@ export class StopwatchStore {
     this.countUp = countUp;
   }
 
-  private nextStep = () => {
+  private nextStep() {
     if (this.countUp) {
       this.count += this.step;
     } else {

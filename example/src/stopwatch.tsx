@@ -16,7 +16,6 @@ export const Stopwatch = observer(() => {
       step: stopwatch.step,
     });
   });
-  const { start } = stopwatch;
   const [themeStore] = useState(createThemeStore);
   useMakeLoggable(themeStore, 'themeStore');
 
@@ -48,7 +47,7 @@ export const Stopwatch = observer(() => {
           <button
             id="start"
             disabled={stopwatch.isTicking}
-            onClick={() => start()}
+            onClick={() => stopwatch.start()}
           >
             start
           </button>
