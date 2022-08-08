@@ -25,7 +25,7 @@ export const Stopwatch = observer(() => {
       this.value++;
     },
   }));
-  useMakeLoggable(counter, 'counter');
+  // useMakeLoggable(counter, 'counter');
   const [participantStore] = useState(() => new ParticipantStore());
 
   return (

@@ -1,13 +1,12 @@
 import { makeAutoObservable } from 'mobx';
-import { DefaultLogger } from '../src';
-import { configureMakeLoggable, makeLoggable } from '../src';
-import { CollectingLogWriter } from '../src/log-writer';
+import { configureLogger, makeLoggable, DefaultLogger } from '../src';
+import { CollectingLogWriter } from '../src/browser-logger/log-writer';
 
 const collectingWriter = new CollectingLogWriter();
 
 process.env.NODE_ENV = 'production';
 
-configureMakeLoggable({
+configureLogger({
   logger: new DefaultLogger(collectingWriter),
 });
 
@@ -26,7 +25,7 @@ class StoreOnlyObservables {
   }
 }
 
-describe('configureMakeLoggable', () => {
+describe('configureLogger', () => {
   it('does not log in production', () => {
     const storeOnlyObservables = new StoreOnlyObservables();
     storeOnlyObservables.init();

@@ -1,9 +1,8 @@
 import { makeAutoObservable } from 'mobx';
-import { DefaultLogger } from '../src';
-import { configureMakeLoggable, makeLoggable } from '../src';
-import { CollectingLogWriter } from '../src/log-writer';
+import { configureLogger, DefaultLogger, makeLoggable } from '../src';
+import { CollectingLogWriter } from '../src/browser-logger/log-writer';
 
-configureMakeLoggable({
+configureLogger({
   logger: new DefaultLogger(new CollectingLogWriter()),
   storeConsoleAccess: true,
 });
@@ -34,7 +33,7 @@ class Todo {
   }
 }
 
-describe('configureMakeLoggable', () => {
+describe('configureLogger', () => {
   it('storeConsoleAccess', () => {
     new Counter();
     new Todo();

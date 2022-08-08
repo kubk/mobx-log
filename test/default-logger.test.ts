@@ -1,5 +1,5 @@
 import { DefaultLogger } from '../src';
-import { CollectingLogWriter } from '../src/log-writer';
+import { CollectingLogWriter } from '../src/browser-logger/log-writer';
 
 describe('DefaultLogger', () => {
   it('logs observable', () => {

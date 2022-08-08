@@ -3,7 +3,7 @@ import {
   MapFormatter,
   ObjectFormatter,
   SetFormatter,
-} from '../src/chrome-formatters';
+} from '../src/browser-logger/chrome-formatters';
 import { observable } from 'mobx';
 
 describe('ChromeFormatters', () => {

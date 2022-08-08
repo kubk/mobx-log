@@ -1,13 +1,13 @@
 import { getDebugName, spy } from 'mobx';
-import {
-  toJsWithComputeds
-} from './to-js-with-computeds';
+import { toJsWithComputeds } from './to-js-with-computeds';
 import { PureSpyEvent } from 'mobx/dist/core/spy';
+import { config } from '../global-config';
+import { Store } from '../store';
 
 type DevtoolsOptions = {
   name?: string;
   features: object;
-}
+};
 
 type Devtools = {
   send(data: string, state: Record<string, any>): void;
@@ -22,12 +22,50 @@ declare global {
   }
 }
 
-const devtoolsMap = new Map<string, Devtools>();
-
 export const isReduxDevtoolsAvailable =
   typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__;
 
-export const makeDevtoolsLoggable = (store: any) => {
+const devtoolsMap = new Map<string, Devtools>();
+
+const startSpyReport = (event: PureSpyEvent) => {
+  if (event.type !== 'action') {
+    return;
+  }
+
+  if (!event.object) {
+    if (config.debug) {
+      console.warn(
+        'Unable to schedule devtools update because Spy event.object is empty'
+      );
+    }
+    return;
+  }
+  scheduled.push(() => {
+    try {
+      const name = getDebugName(event.object) + event.name;
+    } catch (e: any) {
+      if (config.debug) {
+        console.warn('Spy object is not observable: ' + e.message);
+      }
+      return;
+    }
+    const name = debugNameToHuman(getDebugName(event.object) + event.name);
+    const devTools = devtoolsMap.get(getDebugName(event.object));
+    if (devTools) {
+      devTools.send(name, toJsWithComputeds(event.object));
+    }
+  });
+};
+
+const scheduled: Function[] = [];
+const finishSpyReport = () => {
+  if (scheduled.length) {
+    const toSend = scheduled.pop();
+    toSend?.();
+  }
+};
+
+export const addStoreToDevtools = (store: Store) => {
   if (!isReduxDevtoolsAvailable) {
     return;
   }
@@ -72,46 +110,6 @@ const createDevtools = (name: string) => {
   });
 };
 
-export const mobxReduxDevtoolsConfig = {
-  debug: false,
-};
-
 const debugNameToHuman = (name: string) => {
   return name.replace(/@\d+/, '@');
 };
-
-const scheduled: Function[] = [];
-function finishSpyReport() {
-  if (scheduled.length) {
-    const toSend = scheduled.pop();
-    toSend?.();
-  }
-}
-
-function startSpyReport(event: PureSpyEvent) {
-  if (event.type !== 'action')  {
-    return;
-  }
-
-  if (!event.object) {
-    if (mobxReduxDevtoolsConfig.debug) {
-      console.warn('Unable to schedule devtools update because Spy event.object is empty');
-    }
-    return;
-  }
-  scheduled.push(() => {
-    try {
-      const name = getDebugName(event.object) + event.name;
-    } catch (e: any) {
-      if (mobxReduxDevtoolsConfig.debug) {
-        console.warn('Spy object is not observable: ' + e.message);
-      }
-      return;
-    }
-    const name = debugNameToHuman(getDebugName(event.object) + event.name);
-    const devTools = devtoolsMap.get(getDebugName(event.object));
-    if (devTools) {
-      devTools.send(name, toJsWithComputeds(event.object));
-    }
-  });
-}

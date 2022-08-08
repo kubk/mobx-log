@@ -1,8 +1,5 @@
 import { makeAutoObservable } from 'mobx';
 import { makeLoggable } from '../../src';
-import {
-  makeDevtoolsLoggable
-} from '../../src/redux-devtools/mobx-redux-devtools';
 
 export class StopwatchStore {
   countUp = true;
@@ -21,7 +18,6 @@ export class StopwatchStore {
       { autoBind: true }
     );
     makeLoggable(this);
-    makeDevtoolsLoggable(this)
   }
 
   start() {
@@ -61,7 +57,7 @@ export class StopwatchStore {
     } else {
       this.count -= this.step;
     }
-  };
+  }
 
   setTickSpeed(tickSpeed: number) {
     this.tickSpeed = tickSpeed;

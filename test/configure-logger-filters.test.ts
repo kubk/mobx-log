@@ -1,11 +1,10 @@
 import { autorun, makeAutoObservable } from 'mobx';
-import { DefaultLogger } from '../src';
-import { configureMakeLoggable, makeLoggable } from '../src';
-import { CollectingLogWriter } from '../src/log-writer';
+import { configureLogger, DefaultLogger, makeLoggable } from '../src';
+import { CollectingLogWriter } from '../src/browser-logger/log-writer';
 
 const logWriter = new CollectingLogWriter();
 
-configureMakeLoggable({
+configureLogger({
   logger: new DefaultLogger(logWriter),
   storeConsoleAccess: true,
   filters: {
@@ -32,7 +31,7 @@ class Counter {
   }
 }
 
-describe('configureMakeLoggable - filters', () => {
+describe('configureLogger - filters', () => {
   it('respects filters', () => {
     const c = new Counter();
 

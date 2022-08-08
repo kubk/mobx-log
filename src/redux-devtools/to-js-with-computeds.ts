@@ -1,11 +1,17 @@
 import { isComputedProp, toJS } from 'mobx';
+import { Store } from '../store';
 
-const getComputeds = (store: any) => {
+const getComputeds = (store: Store) => {
   const computeds: Record<string, any> = {};
 
   Object.getOwnPropertyNames(store).forEach((prop) => {
     if (isComputedProp(store, prop)) {
-      computeds[prop] = store[prop];
+      try {
+        computeds[prop] = store[prop];
+      } catch (e) {
+        // If an exception was thrown we don't want to leave devtools in a broken state
+        computeds[prop] = '*Exception*';
+      }
     }
   });
 
@@ -13,5 +19,5 @@ const getComputeds = (store: any) => {
 };
 
 export const toJsWithComputeds = (store: any) => {
-  return { ...toJS(store), ...getComputeds(store)};
+  return { ...toJS(store), ...getComputeds(store) };
 };
