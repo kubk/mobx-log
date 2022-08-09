@@ -28,7 +28,7 @@ export default [
     ],
   },
   {
-    input: './dist/types/index.d.ts',
+    input: 'dist/types/index.d.ts',
     output: [{ file: packageJson.types, format: 'es' }],
     plugins: [dts()],
   },
