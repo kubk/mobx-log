@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import dts from 'rollup-plugin-dts';
 
 const packageJson = require('./package.json');
 
@@ -25,5 +26,10 @@ export default [
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
     ],
+  },
+  {
+    input: './dist/types/index.d.ts',
+    output: [{ file: packageJson.types, format: 'es' }],
+    plugins: [dts()],
   },
 ];
