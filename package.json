@@ -12,7 +12,7 @@
   "repository": "https://github.com/kubk/mobx-log",
   "types": "dist/mobx-log.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && cp dist/types/index.d.ts dist/mobx-log.d.ts",
     "test": "jest test --passWithNoTests",
     "test:update-snapshot": "jest test --updateSnapshot",
     "test:cache": "jest test --clearCache",
