@@ -1,4 +1,4 @@
-import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from './types';
+import { ActionEvent, ComputedEvent, Logger, ObservableEvent } from '../types';
 import { LogWriter } from './log-writer';
 
 const colors = {

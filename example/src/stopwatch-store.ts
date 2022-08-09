@@ -51,13 +51,13 @@ export class StopwatchStore {
     this.countUp = countUp;
   }
 
-  private nextStep = () => {
+  private nextStep() {
     if (this.countUp) {
       this.count += this.step;
     } else {
       this.count -= this.step;
     }
-  };
+  }
 
   setTickSpeed(tickSpeed: number) {
     this.tickSpeed = tickSpeed;

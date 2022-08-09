@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Stopwatch } from './stopwatch';
-import { configureMakeLoggable } from '../../src';
+import { configureDevtools, configureLogger } from '../../src';
 
-configureMakeLoggable({
+configureDevtools({
   storeConsoleAccess: true,
 });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Stopwatch />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<Stopwatch />, document.getElementById('root'));

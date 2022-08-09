@@ -3,9 +3,13 @@ import { makeLoggable } from '../../src';
 
 export class FormStore<T extends Record<string, number>> {
   constructor(public form: T) {
-    makeAutoObservable(this, {
-      getField: false,
-    });
+    makeAutoObservable(
+      this,
+      {
+        getField: false,
+      },
+      { autoBind: true }
+    );
     makeLoggable(this);
   }
 

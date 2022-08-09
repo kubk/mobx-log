@@ -1,10 +1,9 @@
-import {
-  ArrayFormatter,
-  MapFormatter,
-  ObjectFormatter,
-  SetFormatter,
-} from '../src/chrome-formatters';
 import { observable } from 'mobx';
+import {
+  ArrayFormatter, MapFormatter,
+  ObjectFormatter,
+  SetFormatter
+} from './chrome-formatters';
 
 describe('ChromeFormatters', () => {
   it('ObjectFormatter returns null for non observable object', () => {

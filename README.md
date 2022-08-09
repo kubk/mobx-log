@@ -5,7 +5,7 @@
 [![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. Supports `useLocalObservable` and stores created with a [factory function](https://github.com/kubk/mobx-log#usage-with-factory-functions). It also provides access to store in browser console, so you can log store, call actions and computeds. Works only in dev mode.
+Logger + Redux devtools for Mobx 6+. Works only in dev mode.
 ![screenshot](.github/screely.png)
 ### Installation
 
@@ -13,7 +13,31 @@ Logger for Mobx 6+. It logs Mobx actions, observables and computeds. It uses cus
 npm i mobx-log
 ```
 
-### Usage
+### Usage with Redux Devtools
+1. Make sure [Redux Devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) are installed
+2. Add `makeLoggable` to each store you'd like to debug:
+
+```diff
+import { makeLoggable } from 'mobx-log'
+
+class SomeStore {
+  ...
+
+  constructor() {
+    makeAutoObservable(this)
++   makeLoggable(this)
+  }
+}
+```
+
+3. Add `configureDevtools` at the very beginning of your app:
+```typescript
+import { configureDevtools } from 'mobx-log'
+
+configureDevtools()
+```
+
+### Usage with browser logger
 1. Add `makeLoggable` to a store:
 
 ```diff
@@ -21,8 +45,8 @@ class SomeStore {
   ...
 
   constructor() {
-    makeAutoObservable(this);
-+   makeLoggable(this);
+    makeAutoObservable(this)
++   makeLoggable(this)
   }
 }
 ```
@@ -31,26 +55,55 @@ class SomeStore {
 
 ![alt text](https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png)
 
-### Customize
+You'll only need to do it once.
 
-In order to customize `mobx-log` use `configureMakeLoggable` function.
+3. Add `configureLogger` at the very beginning of your app:
+```typescript
+import { configureLogger } from 'mobx-log'
+
+configureLogger()
+```
+
+### Use only browser formatters
+
+`mobx-log` uses custom Chrome formatters, so you won't see awkward `[Proxy, Proxy]` in your console anymore. All your `console.log(store)` calls will be nicely formatted. If it is the only feature you need from this package, you can use just formatters:
+
+```typescript
+import { applyFormatters } from 'mobx-log'
+
+applyFormatters()
+```
+
+Call it at the very beginning of your app.
+
+## Customize
 
 ### Access stores as global variables in browser console.
 
 It is a recommended option: 
 ```js
-import { configureMakeLoggable } from 'mobx-log';
+import { configureLogger } from 'mobx-log'
 
-configureMakeLoggable({
+configureLogger({
   storeConsoleAccess: true,
-});
+})
+```
+
+or 
+
+```js
+import { configureDevtools } from 'mobx-log'
+
+configureDevtools({
+  storeConsoleAccess: true,
+})
 ```
 
 After it all the stores marked as loggable become accessible as global variables. Example:
 ```js
 class AuthStore {
   constructor() {
-    makeLoggable(this);
+    makeLoggable(this)
   }
 }
 ```
@@ -61,28 +114,28 @@ Then you can type `store.authStore` in your browser console. Feel free to log st
 
 An example how to log only `actions` and `computeds`:
 ```js
-import { configureMakeLoggable } from 'mobx-log';
+import { configureLogger } from 'mobx-log'
 
-configureMakeLoggable({
+configureLogger({
   filters: {
     computeds: true,
     actions: true,
     observables: false,
   }
-});
+})
 ```
 ### Log observables / computeds / actions of a specific store.
 
 An example how to log only changes in `computeds` of a store `Counter`.
 
 ```js
-import { makeLoggable } from 'mobx-log';
+import { makeLoggable } from 'mobx-log'
 
 class Counter {
-  value = 0;
+  value = 0
   
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this)
     makeLoggable(this, {
       filters: {
         events: {
@@ -91,7 +144,7 @@ class Counter {
           actions: false,
         },
       },
-    });
+    })
   }
 }
 ```
@@ -100,38 +153,27 @@ class Counter {
 Example - add time for each log entry:
 ```typescript
 
-import { configureMakeLoggable, DefaultLogger, LogWriter } from 'mobx-log';
+import { configureLogger, DefaultLogger, LogWriter } from 'mobx-log'
 
 export const now = () => {
-  const time = new Date();
-  const h = time.getHours().toString().padStart(2, '0');
-  const m = time.getMinutes().toString().padStart(2, '0');
-  const s = time.getSeconds().toString().padStart(2, '0');
-  const ms = time.getMilliseconds().toString().padStart(3, '0');
+  const time = new Date()
+  const h = time.getHours().toString().padStart(2, '0')
+  const m = time.getMinutes().toString().padStart(2, '0')
+  const s = time.getSeconds().toString().padStart(2, '0')
+  const ms = time.getMilliseconds().toString().padStart(3, '0')
 
-  return `${h}:${m}:${s}.${ms}`;
-};
+  return `${h}:${m}:${s}.${ms}`
+}
 
 class MyLogWriter implements LogWriter {
   write(...messages: unknown[]) {
-    console.log(now(), ...messages);
+    console.log(now(), ...messages)
   }
 }
 
-configureMakeLoggable({
+configureLogger({
   logger: new DefaultLogger(new MyLogWriter()),
-});
-```
-
-### Enable debug mode  - log all Mobx spy reports.
-
-Useful for library contributors:
-```js
-import { configureMakeLoggable } from 'mobx-log';
-
-configureMakeLoggable({
-  debug: true
-});
+})
 ```
 
 ### Usage with factory functions
@@ -206,17 +248,6 @@ const App = observer(() => {
 ```
 
 The store also become available in console if you turn on `storeConsoleAccess` option.
-
-### Using formatters without using logger
-This package installs Chrome formatters automatically after first `makeLoggable` call. If you'd like to use Chrome formatters only, without the logging functionality you can call `applyFormatters`:
-
-```js
-import { applyFormatters } from 'mobx-log';
-
-applyFormatters();
-```
-
-You need to call this function only once.
 
 ### How it is different from alternatives?
 - [mobx-logger](https://github.com/winterbe/mobx-logger) doesn't show [observables and computeds](https://github.com/winterbe/mobx-logger/issues/34) with Mobx 6 due to changes in Mobx internals.

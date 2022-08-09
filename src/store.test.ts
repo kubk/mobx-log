@@ -1,6 +1,8 @@
-import { makeLoggable } from '../src';
+import { configureLogger, makeLoggable } from '../src';
 import { makeAutoObservable } from 'mobx';
 import { getStoreName, isStore } from '../src/store';
+
+configureLogger();
 
 export const createCounterStore = () => {
   return makeLoggable(
@@ -32,7 +34,6 @@ describe('Store', () => {
     expect(getStoreName(createCounterStore())).toBe('counter');
 
     expect(isStore(new CounterStore())).toBeTruthy();
-    // @ts-expect-error
     expect(getStoreName(new CounterStore())).toBe('CounterStore');
   });
 });

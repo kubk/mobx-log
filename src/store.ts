@@ -1,5 +1,5 @@
 export type Store = {
-  [key: string]: unknown;
+  [key: string]: any;
 };
 
 export const isStore = (store: unknown): store is Store => {

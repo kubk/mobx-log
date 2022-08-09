@@ -1,12 +1,12 @@
 export { makeLoggable } from './make-loggable';
-export { DefaultLogger } from './default-logger';
+export { DefaultLogger } from './browser-logger/default-logger';
 export type {
   ObservableEvent,
   ComputedEvent,
   ActionEvent,
   Logger,
 } from './types';
-export { DefaultLogWriter } from './log-writer';
-export { configureMakeLoggable } from './global-config';
+export { DefaultLogWriter } from './browser-logger/log-writer';
+export { configureDevtools, configureLogger } from './config';
 export { useMakeLoggable } from './use-make-loggable';
-export { installMobxFormatters as applyFormatters } from './chrome-formatters';
+export { installMobxFormatters as applyFormatters } from './browser-logger/chrome-formatters';
