@@ -2,7 +2,7 @@ import { comparer, spy } from 'mobx';
 import type { PureSpyEvent } from 'mobx/dist/core/spy';
 import { Logger } from '../types';
 import { getStoreName, isStore } from '../store';
-import { GlobalConfig } from '../global-config';
+import { Config } from '../config';
 
 const parseDebugName = (name: string) => {
   return name.replace(/@\d+/, '');
@@ -24,7 +24,7 @@ export class BrowserConsoleSpy {
   constructor(
     private logger: Logger,
     private debug = false,
-    private globalFilters: GlobalConfig['filters']
+    private globalFilters: Config['filters']
   ) {}
 
   listen() {

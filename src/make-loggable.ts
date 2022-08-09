@@ -2,7 +2,7 @@ import {
   BrowserConsoleSpy,
   StoreEventFilters,
 } from './browser-logger/browser-console-spy';
-import { config, LoggerType } from './global-config';
+import { config, LoggerType } from './config';
 import {
   installMobxFormatters,
   ChromeFormatter,

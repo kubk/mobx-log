@@ -7,7 +7,7 @@ export enum LoggerType {
   BrowserConsole = 'browser-console',
 }
 
-export type GlobalConfig = {
+export type Config = {
   logger: Logger;
   debug: boolean;
   type: LoggerType | null;
@@ -19,7 +19,7 @@ export type GlobalConfig = {
   };
 };
 
-export const config: GlobalConfig = {
+export const config: Config = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   type: null,
   debug: false,
@@ -32,7 +32,7 @@ export const config: GlobalConfig = {
 };
 
 type DevToolsOptions = Partial<
-  Pick<GlobalConfig, 'debug' | 'storeConsoleAccess'>
+  Pick<Config, 'debug' | 'storeConsoleAccess'>
 >;
 
 export const configureDevtools = (options?: DevToolsOptions) => {
@@ -46,7 +46,7 @@ export const configureDevtools = (options?: DevToolsOptions) => {
 };
 
 type LoggerOptions = Partial<
-  Pick<GlobalConfig, 'logger' | 'debug' | 'storeConsoleAccess' | 'filters'>
+  Pick<Config, 'logger' | 'debug' | 'storeConsoleAccess' | 'filters'>
 >;
 
 export const configureLogger = (options?: LoggerOptions) => {
