@@ -1,8 +1,8 @@
 import { autorun, makeAutoObservable } from 'mobx';
 import { DefaultLogger } from '../src';
 import { configureLogger, makeLoggable } from '../src';
-import { CollectingLogWriter } from '../src/browser-logger/log-writer';
-import { StoreEventFilters } from '../src/browser-logger/browser-console-spy';
+import { CollectingLogWriter } from './browser-logger/log-writer';
+import { StoreEventFilters } from './browser-logger/browser-console-spy';
 
 const collectingWriter = new CollectingLogWriter();
 

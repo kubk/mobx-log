@@ -1,8 +1,9 @@
 import { observable } from 'mobx';
 import {
-  ArrayFormatter, MapFormatter,
+  ArrayFormatter,
+  MapFormatter,
   ObjectFormatter,
-  SetFormatter
+  SetFormatter,
 } from './chrome-formatters';
 
 describe('ChromeFormatters', () => {

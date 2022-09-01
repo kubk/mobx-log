@@ -4,8 +4,8 @@ import {
 } from './browser-logger/browser-console-spy';
 import { config, LoggerType } from './config';
 import {
-  installMobxFormatters,
   ChromeFormatter,
+  installMobxFormatters,
 } from './browser-logger/chrome-formatters';
 import { getStoreName } from './store';
 import { isObservable } from 'mobx';
@@ -48,24 +48,17 @@ export const makeLoggable = <T extends {}>(
     );
   }
 
-  if (config.type === null) {
-    throw new Error(`mobx-log: using mobx-log without an initializer function is deprecated.
-Please call configureLogger or configureDevtools in the very beginning of your code.
-    `);
-  }
+  const loggerType: LoggerType = isReduxDevtoolsAvailable
+    ? LoggerType.ReduxDevtools
+    : LoggerType.BrowserConsole;
 
   const storeName = getStoreName(store);
   if (storeName === null) {
     return store;
   }
 
-  switch (config.type) {
+  switch (loggerType) {
     case LoggerType.ReduxDevtools:
-      if (!isReduxDevtoolsAvailable) {
-        throw new Error(
-          `mobx-log: it looks like redux-devtools are not installed. Please install them to proceed.`
-        );
-      }
       addStoreToDevtools(store);
       break;
     case LoggerType.BrowserConsole: {
@@ -76,8 +69,8 @@ Please call configureLogger or configureDevtools in the very beginning of your c
           config.filters
         );
         browserConsoleSpy.listen();
-        installMobxFormatters();
       }
+      installMobxFormatters();
 
       const actualPerStoreConfig = Object.assign(
         {
@@ -99,7 +92,7 @@ Please call configureLogger or configureDevtools in the very beginning of your c
       break;
     }
     default:
-      throw new UnreachableCaseError(config.type);
+      throw new UnreachableCaseError(loggerType);
   }
 
   if (config.storeConsoleAccess) {

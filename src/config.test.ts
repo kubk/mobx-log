@@ -1,10 +1,10 @@
 import { autorun, makeAutoObservable } from 'mobx';
 import { configureLogger, makeLoggable, DefaultLogger } from '../src';
-import { CollectingLogWriter } from '../src/browser-logger/log-writer';
+import { CollectingLogWriter } from './browser-logger/log-writer';
 
 describe('config for production', () => {
   const previousEnv = process.env.NODE_ENV;
-  process.env.NODE_ENV = 'production'
+  process.env.NODE_ENV = 'production';
 
   const collectingWriter = new CollectingLogWriter();
 
@@ -129,4 +129,4 @@ describe('config - console access', () => {
     expect(typeof window.store!['todo'] === 'object').toBeTruthy();
     expect(Object.keys(window.store!['todo'])).toHaveLength(1);
   });
-})
+});

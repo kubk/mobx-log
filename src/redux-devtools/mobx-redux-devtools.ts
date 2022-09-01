@@ -66,9 +66,6 @@ const finishSpyReport = () => {
 };
 
 export const addStoreToDevtools = (store: Store) => {
-  if (!isReduxDevtoolsAvailable) {
-    return;
-  }
   initMobxSpy();
   const debugName = getDebugName(store);
   const devtools = createDevtools(debugName);

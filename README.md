@@ -30,13 +30,6 @@ class SomeStore {
 }
 ```
 
-3. Add `configureDevtools` at the very beginning of your app:
-```typescript
-import { configureDevtools } from 'mobx-log'
-
-configureDevtools()
-```
-
 ### Usage with browser logger
 1. Add `makeLoggable` to a store:
 
@@ -57,12 +50,7 @@ class SomeStore {
 
 You'll only need to do it once.
 
-3. Add `configureLogger` at the very beginning of your app:
-```typescript
-import { configureLogger } from 'mobx-log'
-
-configureLogger()
-```
+3. If you have Redux devtools installed then you need to deactivate it. The `mobx-log` package tries to detect automatically what you'd like to use - browser console or Redux devtools. Installed Redux devtools take precedence over browser console.
 
 ### Use only browser formatters
 
@@ -85,16 +73,6 @@ It is a recommended option:
 import { configureLogger } from 'mobx-log'
 
 configureLogger({
-  storeConsoleAccess: true,
-})
-```
-
-or 
-
-```js
-import { configureDevtools } from 'mobx-log'
-
-configureDevtools({
   storeConsoleAccess: true,
 })
 ```
