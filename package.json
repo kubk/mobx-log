@@ -13,7 +13,7 @@
   "types": "dist/mobx-log.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "test": "jest toest --passWithNoTests",
+    "test": "jest test --passWithNoTests",
     "prepublish": "npm run build",
     "test:update-snapshot": "jest test --updateSnapshot",
     "test:cache": "jest test --clearCache"
