@@ -1,5 +1,5 @@
 import { getDebugName, spy } from 'mobx';
-import { toJsWithComputeds } from './to-js-with-computeds';
+import { toJsWithComputeds } from '../to-js-with-computeds';
 import { PureSpyEvent } from 'mobx/dist/core/spy';
 import { config } from '../config';
 import { Store } from '../store';

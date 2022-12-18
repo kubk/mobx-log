@@ -7,6 +7,7 @@ import {
   ObservableSet,
   toJS,
 } from 'mobx';
+import { toJsWithComputeds } from '../to-js-with-computeds';
 
 type Css = { style: string };
 type Chunk = [string, Css, string];
@@ -63,7 +64,8 @@ const renderIterableBody = (
     return ['ol', styles.list, ...children];
   }
 
-  const children = Object.entries(toJS(collection)).map(mapper);
+  const toJSResult = toJsWithComputeds(collection);
+  const children = Object.entries(toJSResult).map(mapper);
   return ['ol', styles.list, ...children];
 };
 

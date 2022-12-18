@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { makeAutoObservable, observable } from 'mobx';
 import {
   ArrayFormatter,
   MapFormatter,
@@ -13,8 +13,20 @@ describe('ChromeFormatters', () => {
     expect(objectFormatter.header({ a: 1, b: 2 })).toBeNull();
   });
 
-  it('ObjectFormatter formats object', () => {
-    const userState = observable({ age: 23, name: 'Test' });
+  it('ObjectFormatter formats object with computeds', () => {
+    const userState = makeAutoObservable({
+      age: 23,
+      name: 'Test',
+      get isAllowed() {
+        return this.age >= 18;
+      },
+      get json() {
+        return {
+          age: this.age,
+          name: this.name,
+        };
+      },
+    });
 
     const objectFormatter = new ObjectFormatter();
 

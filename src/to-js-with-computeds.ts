@@ -1,5 +1,5 @@
 import { isComputedProp, toJS } from 'mobx';
-import { Store } from '../store';
+import { Store } from './store';
 
 const getComputeds = (store: Store) => {
   const computeds: Record<string, any> = {};

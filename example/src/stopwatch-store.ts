@@ -32,6 +32,13 @@ export class StopwatchStore {
     return !!this.lastIntervalId;
   }
 
+  get json() {
+    return {
+      count: this.count,
+      isTicking: this.isTicking,
+    };
+  }
+
   pause() {
     if (this.lastIntervalId) {
       clearInterval(this.lastIntervalId);
