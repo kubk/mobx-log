@@ -89,7 +89,7 @@ If you'd like to disable this feature use this:
 import { configureLogger } from 'mobx-log';
 
 configureLogger({
-  storeConsoleAccess: true,
+  storeConsoleAccess: false,
 });
 ```
 
