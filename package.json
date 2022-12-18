@@ -16,7 +16,7 @@
     "test": "jest test --passWithNoTests",
     "test:update-snapshot": "jest test --updateSnapshot",
     "test:cache": "jest test --clearCache",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "prepare": "husky install"
   },
   "peerDependencies": {
