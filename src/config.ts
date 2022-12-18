@@ -21,7 +21,7 @@ export type Config = {
 export const config: Config = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   debug: false,
-  storeConsoleAccess: false,
+  storeConsoleAccess: true,
   filters: {
     computeds: true,
     actions: true,
