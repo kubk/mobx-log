@@ -65,7 +65,7 @@ import { applyFormatters } from 'mobx-log';
 applyFormatters();
 ```
 
-Make this function is called at the very top of your code
+Make sure this function is called at the very top of your code
 
 ## Customize
 
@@ -93,7 +93,7 @@ configureLogger({
 });
 ```
 
-Make this function is called at the very top of your code
+Make sure this function is called at the very top of your code
 
 ### Log observables / computeds / actions conditionally
 
