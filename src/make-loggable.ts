@@ -24,10 +24,6 @@ declare global {
 
 let browserConsoleSpy: BrowserConsoleSpy;
 
-const firstLetterLowerCase = (word: string) => {
-  return word.charAt(0).toLowerCase() + word.slice(1);
-};
-
 type PerStoreFilters = {
   filters: { events: StoreEventFilters };
 };
@@ -97,8 +93,7 @@ export const makeLoggable = <T extends {}>(
 
   if (config.storeConsoleAccess) {
     window.store = window.store || {};
-    const storeKey = firstLetterLowerCase(storeName);
-    window.store[storeKey] = store;
+    window.store[storeName] = store;
   }
 
   return store;

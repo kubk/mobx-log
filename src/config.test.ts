@@ -118,15 +118,15 @@ describe('config - console access', () => {
     new Todo();
 
     expect(window.store).toBeTruthy();
-    expect(window.store).toHaveProperty('counter');
-    expect(window.store).toHaveProperty('todo');
-    expect(typeof window.store!['todo'] === 'object').toBeTruthy();
+    expect(window.store).toHaveProperty('Counter');
+    expect(window.store).toHaveProperty('Todo');
+    expect(typeof window.store!['Todo'] === 'object').toBeTruthy();
     expect(Object.keys(window.store!)).toHaveLength(2);
 
     new Todo();
 
     expect(Object.keys(window.store!)).toHaveLength(2);
-    expect(typeof window.store!['todo'] === 'object').toBeTruthy();
-    expect(Object.keys(window.store!['todo'])).toHaveLength(1);
+    expect(typeof window.store!['Todo'] === 'object').toBeTruthy();
+    expect(Object.keys(window.store!['Todo'])).toHaveLength(1);
   });
 });
