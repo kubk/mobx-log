@@ -32,7 +32,7 @@ export const makeLoggable = <T extends {}>(
   store: T,
   perStoreConfig?: PerStoreFilters
 ): T => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || typeof window === 'undefined') {
     return store;
   }
 
