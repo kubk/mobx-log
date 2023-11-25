@@ -41,19 +41,21 @@ const startSpyReport = (event: PureSpyEvent) => {
     return;
   }
   scheduled.push(() => {
-    try {
-      const name = getDebugName(event.object) + event.name;
-    } catch (e: any) {
-      if (config.debug) {
-        console.warn('Spy object is not observable: ' + e.message);
+    setTimeout(() => {
+      try {
+        const name = getDebugName(event.object) + event.name;
+      } catch (e: any) {
+        if (config.debug) {
+          console.warn('Spy object is not observable: ' + e.message);
+        }
+        return;
       }
-      return;
-    }
-    const name = debugNameToHuman(getDebugName(event.object) + event.name);
-    const devTools = devtoolsMap.get(getDebugName(event.object));
-    if (devTools) {
-      devTools.send(name, toJsWithComputeds(event.object));
-    }
+      const name = debugNameToHuman(getDebugName(event.object) + event.name);
+      const devTools = devtoolsMap.get(getDebugName(event.object));
+      if (devTools) {
+        devTools.send(name, toJsWithComputeds(event.object));
+      }
+    });
   });
 };
 
