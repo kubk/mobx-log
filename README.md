@@ -6,13 +6,15 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 Logger + Redux devtools for Mobx 6+. Works only in dev mode.
-![screenshot](.github/screely.png)
+![screenshot](.github/main-prev.png)
 
 ### Installation
 
 ```
 npm i mobx-log
 ```
+
+There are 3 ways how you can use `mobx-log` in your project:
 
 ### Usage with Redux Devtools
 
@@ -31,6 +33,9 @@ class SomeStore {
   }
 }
 ```
+
+Result:
+![screenshot](.github/redux-prev.png)
 
 ### Usage with browser logger
 
@@ -53,6 +58,9 @@ class SomeStore {
 
 You'll only need to do it once.
 
+Result:
+![screenshot](.github/browser-log-prev.png)
+
 3. If you have Redux devtools installed then you need to deactivate it. The `mobx-log` package tries to detect automatically what you'd like to use - browser console or Redux devtools. Installed Redux devtools take precedence over browser console.
 
 ### Use only browser formatters
@@ -66,6 +74,12 @@ applyFormatters();
 ```
 
 Make sure this function is called at the very top of your code
+
+> [!IMPORTANT]
+> Make sure to enable [custom formatters](#usage-with-browser-logger) before using it
+
+> [!NOTE]
+> You don't have to call `applyFormatters` if you are already using [makeLoggable](#usage-with-browser-logger). In this case formatters are applied automatically.
 
 ## Customize
 
