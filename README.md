@@ -61,7 +61,8 @@ You'll only need to do it once.
 Result:
 ![screenshot](.github/browser-log-prev.png)
 
-3. If you have Redux devtools installed then you need to deactivate it. The `mobx-log` package tries to detect automatically what you'd like to use - browser console or Redux devtools. Installed Redux devtools take precedence over browser console.
+> [!IMPORTANT]
+> If you have Redux devtools installed then you need to deactivate it. The `mobx-log` package tries to detect automatically what you'd like to use - browser console or Redux devtools. Installed Redux devtools take precedence over browser console.
 
 ### Use only browser formatters
 
