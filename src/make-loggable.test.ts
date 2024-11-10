@@ -3,6 +3,7 @@ import { DefaultLogger } from '../src';
 import { configureLogger, makeLoggable } from '../src';
 import { CollectingLogWriter } from './browser-logger/log-writer';
 import { StoreEventFilters } from './browser-logger/browser-console-spy';
+import { describe, expect, beforeEach, it } from 'vitest';
 
 const collectingWriter = new CollectingLogWriter();
 

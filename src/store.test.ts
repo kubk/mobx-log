@@ -1,6 +1,7 @@
 import { configureLogger, makeLoggable } from '../src';
 import { makeAutoObservable } from 'mobx';
 import { getStoreName, isStore } from './store';
+import { describe, expect, it } from 'vitest';
 
 configureLogger();
 

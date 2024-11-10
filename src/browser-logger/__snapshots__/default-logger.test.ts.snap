@@ -1,19 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DefaultLogger logs action 1`] = `
-Array [
+exports[`DefaultLogger > logs action 1`] = `
+[
   "%c[A]%c add(%o) color:#FF6157 color:inherit 1",
 ]
 `;
 
-exports[`DefaultLogger logs computed 1`] = `
-Array [
+exports[`DefaultLogger > logs computed 1`] = `
+[
   "%c[C] color:#28B7F6 isEven true -> false",
 ]
 `;
 
-exports[`DefaultLogger logs observable 1`] = `
-Array [
+exports[`DefaultLogger > logs observable 1`] = `
+[
   "%c[O] color:#FFBC2D age 23 -> 24",
 ]
 `;
