@@ -1,5 +1,6 @@
 import { CollectingLogWriter } from './log-writer';
 import { DefaultLogger } from './default-logger';
+import { describe, expect, it } from 'vitest';
 
 describe('DefaultLogger', () => {
   it('logs observable', () => {

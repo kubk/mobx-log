@@ -1,5 +1,6 @@
 import { autorun, makeAutoObservable } from 'mobx';
 import { configureLogger, makeLoggable, DefaultLogger } from '../src';
+import { describe, it, expect } from 'vitest';
 import { CollectingLogWriter } from './browser-logger/log-writer';
 
 describe('config for production', () => {

@@ -1,5 +1,6 @@
 import { toJsWithComputeds } from './to-js-with-computeds';
 import { makeAutoObservable } from 'mobx';
+import { expect, test } from 'vitest';
 
 class Store {
   count = 0;

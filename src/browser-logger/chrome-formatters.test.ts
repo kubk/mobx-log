@@ -5,6 +5,7 @@ import {
   ObjectFormatter,
   SetFormatter,
 } from './chrome-formatters';
+import { describe, expect, it } from 'vitest';
 
 describe('ChromeFormatters', () => {
   it('ObjectFormatter returns null for non observable object', () => {
