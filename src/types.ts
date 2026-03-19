@@ -1,7 +1,8 @@
 export type ComputedEvent = {
   name: string;
-  oldValue: unknown;
   newValue: unknown;
+  oldValue?: unknown;
+  hasOldValue?: boolean;
 };
 
 export type ObservableEvent =

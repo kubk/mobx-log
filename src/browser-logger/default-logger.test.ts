@@ -30,6 +30,19 @@ describe('DefaultLogger', () => {
     expect(logWriter.history).toMatchSnapshot();
   });
 
+  it('logs computed without previous value', () => {
+    const logWriter = new CollectingLogWriter();
+    const plainLogger = new DefaultLogger(logWriter);
+
+    plainLogger.logComputed({
+      name: 'isEven',
+      hasOldValue: false,
+      newValue: true,
+    });
+
+    expect(logWriter.history).toMatchSnapshot();
+  });
+
   it('logs action', () => {
     const logWriter = new CollectingLogWriter();
     const plainLogger = new DefaultLogger(logWriter);

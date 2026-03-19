@@ -8,6 +8,14 @@ const parseDebugName = (name: string) => {
   return name.replace(/@\d+/, '');
 };
 
+const isMobxCaughtException = (value: unknown) => {
+  return (
+    Object.prototype.toString.call(value) === '[object Object]' &&
+    (value as { constructor?: { name?: string } })?.constructor?.name ===
+      'CaughtException'
+  );
+};
+
 export type StoreEventFilters = {
   computeds: boolean;
   observables: boolean;
@@ -47,11 +55,19 @@ export class BrowserConsoleSpy {
             if (!this.filtersPerStore[storeName]?.computeds) {
               return;
             }
-            logger.logComputed({
-              name: computedFullName,
-              oldValue: event.oldValue,
-              newValue: event.newValue,
-            });
+            logger.logComputed(
+              isMobxCaughtException(event.oldValue)
+                ? {
+                    name: computedFullName,
+                    hasOldValue: false,
+                    newValue: event.newValue,
+                  }
+                : {
+                    name: computedFullName,
+                    oldValue: event.oldValue,
+                    newValue: event.newValue,
+                  }
+            );
           }
         }
 

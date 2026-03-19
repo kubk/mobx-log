@@ -2,7 +2,7 @@
 
 exports[`makeLoggable > can filter specific events of a store 1`] = `
 [
-  "%c[C] color:#28B7F6 Counter.isEven [object Object] -> true",
+  "%c[C] color:#28B7F6 Counter.isEven -> true",
   "%c[O] color:#FFBC2D Counter.value 0 -> 1",
   "%c[C] color:#28B7F6 Counter.isEven true -> false",
   "%c[O] color:#FFBC2D Counter.value 1 -> 2",
@@ -26,7 +26,7 @@ exports[`makeLoggable > does not log action with class properties 1`] = `
 
 exports[`makeLoggable > logs 1`] = `
 [
-  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 -> true",
   "%c[A]%c StoreWithComputed.increment() color:#FF6157 color:inherit",
   "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",
@@ -36,7 +36,7 @@ exports[`makeLoggable > logs 1`] = `
 
 exports[`makeLoggable > logs 2`] = `
 [
-  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 [object Object] -> true",
+  "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 -> true",
   "%c[A]%c StoreWithComputed.increment() color:#FF6157 color:inherit",
   "%c[O] color:#FFBC2D StoreWithComputed.value 0 -> 1",
   "%c[C] color:#28B7F6 StoreWithComputed.isDividedBy3 true -> false",

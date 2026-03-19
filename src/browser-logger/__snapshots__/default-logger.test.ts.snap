@@ -12,6 +12,12 @@ exports[`DefaultLogger > logs computed 1`] = `
 ]
 `;
 
+exports[`DefaultLogger > logs computed without previous value 1`] = `
+[
+  "%c[C] color:#28B7F6 isEven -> true",
+]
+`;
+
 exports[`DefaultLogger > logs observable 1`] = `
 [
   "%c[O] color:#FFBC2D age 23 -> 24",

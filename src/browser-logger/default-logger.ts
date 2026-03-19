@@ -97,14 +97,13 @@ export class DefaultLogger implements Logger {
   }
 
   logComputed(event: ComputedEvent): void {
-    const info: unknown[] = [
-      '%c[C]',
-      `color:${colors.blue}`,
-      event.name,
-      event.oldValue,
-      '->',
-      event.newValue,
-    ];
+    const info: unknown[] = ['%c[C]', `color:${colors.blue}`, event.name];
+
+    if (event.hasOldValue ?? true) {
+      info.push(event.oldValue);
+    }
+
+    info.push('->', event.newValue);
 
     this.logWriter.write(...info);
   }
