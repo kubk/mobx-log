@@ -1,12 +1,16 @@
-# mobx-log
+<h1 align="center">mobx-log</h1>
 
-[![Npm Version](https://badge.fury.io/js/mobx-log.svg)](https://badge.fury.io/js/mobx-log)
-[![NPM downloads](http://img.shields.io/npm/dm/mobx-log.svg)](https://www.npmjs.com/package/mobx-log)
-[![Tests](https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/kubk/mobx-log/actions/workflows/main.yml)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+<p align="center">
+  <a href="https://badge.fury.io/js/mobx-log"><img src="https://badge.fury.io/js/mobx-log.svg" alt="Npm Version" /></a>
+  <a href="https://www.npmjs.com/package/mobx-log"><img src="http://img.shields.io/npm/dm/mobx-log.svg" alt="NPM downloads" /></a>
+  <a href="https://github.com/kubk/mobx-log/actions/workflows/main.yml"><img src="https://github.com/kubk/mobx-log/actions/workflows/main.yml/badge.svg?branch=master" alt="Tests" /></a>
+</p>
 
-Logger + Redux devtools for Mobx 6+. Works only in dev mode.
-![screenshot](.github/main-prev.png)
+<p align="center">
+  <img src=".github/main-prev.png" alt="mobx-log screenshot" />
+</p>
+
+<p align="center">Logger + Redux devtools for Mobx 6+. Works only in dev mode.</p>
 
 ### Installation
 
