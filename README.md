@@ -10,7 +10,7 @@
   <img src=".github/main-prev.png" alt="mobx-log screenshot" />
 </p>
 
-<p align="center">Logger + Redux devtools for Mobx 6+. Works only in dev mode.</p>
+<p align="center">Logger + Redux devtools for Mobx 6+.</p>
 
 ### Installation
 
