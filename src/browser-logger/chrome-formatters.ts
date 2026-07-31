@@ -57,7 +57,7 @@ const renderIterableBody = (
     | ObservableMap<unknown, unknown>
     | ObservableSet<unknown>
     | {},
-  mapper: (val: [string, unknown]) => unknown
+  mapper: (val: any) => unknown
 ): Body => {
   if (isObservableMap(collection) || isObservableSet(collection)) {
     const children = Array.from(toJS(collection)).map(mapper);

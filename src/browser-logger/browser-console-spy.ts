@@ -1,5 +1,4 @@
-import { comparer, spy } from 'mobx';
-import type { PureSpyEvent } from 'mobx/dist/core/spy';
+import { spy } from 'mobx';
 import { Logger } from '../types';
 import { getStoreName, isStore } from '../store';
 import { Config } from '../config';
@@ -36,7 +35,7 @@ export class BrowserConsoleSpy {
   ) {}
 
   listen() {
-    spy((event: PureSpyEvent) => {
+    spy((event) => {
       const { logger } = this;
 
       if (this.debug) {
@@ -48,8 +47,7 @@ export class BrowserConsoleSpy {
           if (!this.globalFilters.computeds) {
             return;
           }
-          const equals = comparer.default;
-          if (!equals(event.oldValue, event.newValue)) {
+          if (!Object.is(event.oldValue, event.newValue)) {
             const computedFullName = parseDebugName(event.debugObjectName);
             const [storeName] = computedFullName.split('.');
             if (!this.filtersPerStore[storeName]?.computeds) {

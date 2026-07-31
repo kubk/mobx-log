@@ -1,6 +1,5 @@
 import { getDebugName, spy } from 'mobx';
 import { toJsWithComputeds } from '../to-js-with-computeds';
-import { PureSpyEvent } from 'mobx/dist/core/spy';
 import { config } from '../config';
 import { Store } from '../store';
 
@@ -27,11 +26,13 @@ export const isReduxDevtoolsAvailable =
 
 const devtoolsMap = new Map<string, Devtools>();
 
-const startSpyReport = (event: PureSpyEvent) => {
-  if (event.type !== 'action') {
-    return;
-  }
+type ActionSpyEvent = {
+  type: 'action';
+  name: string;
+  object: unknown;
+};
 
+const startSpyReport = (event: ActionSpyEvent) => {
   if (!event.object) {
     if (config.debug) {
       console.warn(

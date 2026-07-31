@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
+        mobx-version: ['6.3.4', '7']
 
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +25,9 @@ jobs:
 
       - name: Install
         run: npm install
+
+      - name: Install MobX ${{ matrix.mobx-version }}
+        run: npm install --no-save --legacy-peer-deps mobx@${{ matrix.mobx-version }}
 
       - name: Test
         run: npm test

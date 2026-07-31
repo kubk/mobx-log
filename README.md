@@ -10,7 +10,7 @@
   <img src=".github/main-prev.png" alt="mobx-log screenshot" />
 </p>
 
-<p align="center">Logger + Redux devtools for Mobx 6+.</p>
+<p align="center">Logger + Redux devtools for MobX</p>
 
 ### Installation
 
@@ -185,7 +185,7 @@ configureLogger({
 
 ### Usage with factory functions
 
-With Mobx 6 you can create stores without classes using makeAutoObservable / makeObservable:
+You can create stores without classes using makeAutoObservable / makeObservable:
 
 ```typescript
 export const createDoubler = () => {
