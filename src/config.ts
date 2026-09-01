@@ -11,6 +11,7 @@ export type Config = {
   logger: Logger;
   debug: boolean;
   storeConsoleAccess: boolean;
+  browserConsoleFallback: boolean;
   filters: {
     computeds: boolean;
     actions: boolean;
@@ -22,6 +23,7 @@ export const config: Config = {
   logger: new DefaultLogger(new DefaultLogWriter()),
   debug: false,
   storeConsoleAccess: true,
+  browserConsoleFallback: true,
   filters: {
     computeds: true,
     actions: true,
@@ -30,7 +32,14 @@ export const config: Config = {
 };
 
 type LoggerOptions = Partial<
-  Pick<Config, 'logger' | 'debug' | 'storeConsoleAccess' | 'filters'>
+  Pick<
+    Config,
+    | 'logger'
+    | 'debug'
+    | 'storeConsoleAccess'
+    | 'browserConsoleFallback'
+    | 'filters'
+  >
 >;
 
 export const configureLogger = (options?: LoggerOptions) => {
@@ -42,6 +51,9 @@ export const configureLogger = (options?: LoggerOptions) => {
   }
   if (options?.storeConsoleAccess !== undefined) {
     config.storeConsoleAccess = options.storeConsoleAccess;
+  }
+  if (options?.browserConsoleFallback !== undefined) {
+    config.browserConsoleFallback = options.browserConsoleFallback;
   }
   if (options?.filters !== undefined) {
     config.filters = options.filters;
