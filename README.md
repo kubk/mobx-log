@@ -114,6 +114,22 @@ configureLogger({
 
 Make sure this function is called at the very top of your code
 
+### Disable the browser console fallback
+
+By default `mobx-log` auto-detects the environment: if Redux Devtools are installed it uses them, otherwise it falls back to logging store changes into the browser console. On machines or branches where the extension isn't set up this fallback can add a lot of noise to the console.
+
+If you only want logging when Redux Devtools are available, disable the fallback:
+
+```js
+import { configureLogger } from 'mobx-log';
+
+configureLogger({
+  browserConsoleFallback: false,
+});
+```
+
+With this option, when Redux Devtools are missing, `makeLoggable` skips the logging setup and writes nothing to the console. The `storeConsoleAccess` global still works. Make sure this function is called at the very top of your code.
+
 ### Log observables / computeds / actions conditionally
 
 An example how to log only `actions` and `computeds`:

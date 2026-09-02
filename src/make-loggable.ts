@@ -44,9 +44,11 @@ export const makeLoggable = <T extends {}>(
     );
   }
 
-  const loggerType: LoggerType = isReduxDevtoolsAvailable
+  const loggerType: LoggerType | null = isReduxDevtoolsAvailable
     ? LoggerType.ReduxDevtools
-    : LoggerType.BrowserConsole;
+    : config.browserConsoleFallback
+    ? LoggerType.BrowserConsole
+    : null;
 
   const storeName = getStoreName(store);
   if (storeName === null) {
@@ -54,6 +56,10 @@ export const makeLoggable = <T extends {}>(
   }
 
   switch (loggerType) {
+    case null:
+      // Redux devtools are not installed and the browser console fallback is
+      // disabled - skip logging entirely to avoid noise in the console.
+      break;
     case LoggerType.ReduxDevtools:
       addStoreToDevtools(store);
       break;
