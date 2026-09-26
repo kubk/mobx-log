@@ -70,10 +70,7 @@ describe('config - filters', () => {
   it('respects filters', () => {
     const c = new Counter();
 
-    let isEven;
-    autorun(() => {
-      isEven = c.isEven;
-    });
+    autorun(() => c.isEven);
 
     c.increment();
     c.increment();

@@ -8,7 +8,7 @@ const getComputeds = (store: Store) => {
     if (isComputedProp(store, prop)) {
       try {
         computeds[prop] = store[prop];
-      } catch (e) {
+      } catch {
         // If an exception was thrown we don't want to leave devtools in a broken state
         computeds[prop] = '*Exception*';
       }

@@ -43,16 +43,17 @@ const startSpyReport = (event: ActionSpyEvent) => {
   }
   scheduled.push(() => {
     setTimeout(() => {
+      let storeName: string;
       try {
-        const name = getDebugName(event.object) + event.name;
+        storeName = getDebugName(event.object);
       } catch (e: any) {
         if (config.debug) {
           console.warn('Spy object is not observable: ' + e.message);
         }
         return;
       }
-      const name = debugNameToHuman(getDebugName(event.object) + event.name);
-      const devTools = devtoolsMap.get(getDebugName(event.object));
+      const name = debugNameToHuman(storeName + event.name);
+      const devTools = devtoolsMap.get(storeName);
       if (devTools) {
         devTools.send(name, toJsWithComputeds(event.object));
       }

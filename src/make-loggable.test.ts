@@ -342,10 +342,7 @@ describe('makeLoggable', () => {
       observables: true,
     });
 
-    let isEven = false;
-    autorun(() => {
-      isEven = storeLogsOnlyObservablesAndComptueds.isEven;
-    });
+    autorun(() => storeLogsOnlyObservablesAndComptueds.isEven);
 
     storeLogsOnlyObservablesAndComptueds.increment();
     storeLogsOnlyObservablesAndComptueds.increment();
@@ -360,10 +357,7 @@ describe('makeLoggable', () => {
       observables: false,
     });
 
-    let isOdd = false;
-    autorun(() => {
-      isOdd = !storeLogsOnlyActions.isEven;
-    });
+    autorun(() => !storeLogsOnlyActions.isEven);
 
     storeLogsOnlyActions.increment();
     storeLogsOnlyActions.increment();

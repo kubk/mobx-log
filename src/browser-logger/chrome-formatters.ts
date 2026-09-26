@@ -30,7 +30,7 @@ const styles = {
 };
 
 const reference = (object: unknown) => {
-  if (typeof object === 'undefined' || typeof object === null) {
+  if (typeof object === 'undefined' || object === null) {
     return ['span', styles.nullName, typeof object];
   }
   return ['object', { object }];
@@ -106,7 +106,7 @@ export class ArrayFormatter implements ChromeFormatter<ArrayLike<unknown>> {
   }
 
   body(argument: ArrayLike<unknown>): Body {
-    return renderIterableBody(argument, ([_, value]) => [
+    return renderIterableBody(argument, ([, value]) => [
       'li',
       reference(value),
     ]);

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { observer, useLocalObservable } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import { StopwatchStore } from './stopwatch-store';
 import { FormStore } from './form-store';
-import { ParticipantStore } from './participant-store';
 import { createThemeStore } from './create-theme-store';
 import { useMakeLoggable } from '../../src';
 
@@ -18,15 +17,6 @@ export const Stopwatch = observer(() => {
   });
   const [themeStore] = useState(createThemeStore);
   useMakeLoggable(themeStore, 'themeStore');
-
-  const counter = useLocalObservable(() => ({
-    value: 0,
-    increment() {
-      this.value++;
-    },
-  }));
-  // useMakeLoggable(counter, 'counter');
-  const [participantStore] = useState(() => new ParticipantStore());
 
   return (
     <div className={`body ${themeStore.theme === 'dark' ? 'dark' : ''}`}>
