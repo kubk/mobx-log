@@ -15,7 +15,9 @@
 ### Installation
 
 ```
-npm i mobx-log
+npm install mobx-log
+# or
+pnpm add mobx-log
 ```
 
 There are 3 ways how you can use `mobx-log` in your project:
@@ -287,7 +289,7 @@ The store also become available in console if you turn on `storeConsoleAccess` o
 
 ### Example project
 
-This library has example project located in `./example` folder. It is used for development purposes. To run it go to `./example` folder and run `npm run start`.
+This library has example project located in `./example` folder. It is used for development purposes. To run it go to `./example` folder and run `pnpm start`.
 
 ### Store destructuring
 

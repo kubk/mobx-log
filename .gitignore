@@ -5,5 +5,4 @@ node_modules
 dist
 dist_
 .idea
-package-lock.json
 .parcel-cache

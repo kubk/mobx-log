@@ -18,16 +18,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: pnpm
 
       - name: Install
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
       - name: Install MobX ${{ matrix.mobx-version }}
-        run: npm install --no-save --legacy-peer-deps mobx@${{ matrix.mobx-version }}
+        run: pnpm add --save-dev --save-exact mobx@${{ matrix.mobx-version }}
 
       - name: Test
-        run: npm test
+        run: pnpm test

@@ -1,5 +1,6 @@
 {
   "version": "2.4.0",
+  "packageManager": "pnpm@9.15.0",
   "license": "MIT",
   "files": [
     "dist",
@@ -13,8 +14,8 @@
   "types": "dist/mobx-log.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "test": "npx vitest",
-    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "prepublishOnly": "pnpm run build",
     "prepare": "husky install"
   },
   "peerDependencies": {
