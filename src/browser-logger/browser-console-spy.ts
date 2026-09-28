@@ -161,8 +161,8 @@ export class BrowserConsoleSpy {
             event.type === 'delete'
               ? event.oldValue
               : event.type === 'add'
-              ? event.newValue
-              : undefined;
+                ? event.newValue
+                : undefined;
 
           logger.logObservable({
             type: 'set',

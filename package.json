@@ -1,6 +1,11 @@
 {
   "version": "2.4.0",
   "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "lefthook"
+    ]
+  },
   "license": "MIT",
   "files": [
     "dist",
@@ -14,21 +19,19 @@
   "types": "dist/mobx-log.d.ts",
   "scripts": {
     "build": "rollup -c",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "lint": "pnpm run \"/^lint:.*/\"",
     "lint:jscpd": "jscpd src --format typescript,tsx --min-lines 10 --min-tokens 50 --ignore '**/*.test.*' --exit-code 1 --no-colors --no-tips --reporters ai",
     "lint:knip": "knip",
     "lint:oxlint": "oxlint --format=agent",
     "lint:slop-scan": "slop-scan scan . --lint | tee /dev/stderr | grep -q '^0 findings$'",
     "test": "vitest",
-    "prepublishOnly": "pnpm run build",
-    "prepare": "husky install"
+    "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
     "mobx": "^6.3.4 || ^7.0.0",
     "react": ">=16"
-  },
-  "prettier": {
-    "singleQuote": true
   },
   "name": "mobx-log",
   "author": "Egor Gorbachev",
@@ -50,14 +53,13 @@
     "@size-limit/preset-small-lib": "^5.0.3",
     "@types/node": "18.11.18",
     "@types/react": "^18.3.31",
-    "husky": "^8.0.0",
     "jscpd": "^5.3.2",
     "jsdom": "^25.0.1",
     "knip": "^6.38.0",
+    "lefthook": "^2.1.14",
     "mobx": "^7.0.0",
+    "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
-    "prettier": "^2.8.8",
-    "pretty-quick": "^3.1.3",
     "react": "^18.3.1",
     "rollup": "^2.61.1",
     "rollup-plugin-dts": "^4.0.1",

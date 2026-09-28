@@ -46,8 +46,8 @@ export const makeLoggable = <T extends {}>(
   const loggerType: LoggerType | null = isReduxDevtoolsAvailable
     ? LoggerType.ReduxDevtools
     : config.browserConsoleFallback
-    ? LoggerType.BrowserConsole
-    : null;
+      ? LoggerType.BrowserConsole
+      : null;
 
   const storeName = getStoreName(store);
   if (storeName === null) {

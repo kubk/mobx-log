@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [24]
         mobx-version: ['6.3.4', '7']
 
     steps:

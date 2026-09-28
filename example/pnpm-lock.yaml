@@ -13,9 +13,6 @@ importers:
       mobx-react-lite:
         specifier: ^5.0.0
         version: 5.0.0(mobx@7.0.0)(react@18.3.1)
-      prettier:
-        specifier: ^2.6.2
-        version: 2.6.2
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -698,14 +695,6 @@ packages:
       }
     engines: { node: ^10 || ^12 || >=14 }
 
-  prettier@2.6.2:
-    resolution:
-      {
-        integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==,
-      }
-    engines: { node: '>=10.13.0' }
-    hasBin: true
-
   react-dom@18.3.1:
     resolution:
       {
@@ -1192,7 +1181,6 @@ snapshots:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  prettier@2.6.2: {}
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
