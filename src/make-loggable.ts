@@ -9,7 +9,6 @@ import {
 } from './browser-logger/chrome-formatters';
 import { getStoreName } from './store';
 import { isObservable } from 'mobx';
-import { UnreachableCaseError } from './lib/unreachable-case/unreachable-case';
 import {
   addStoreToDevtools,
   isReduxDevtoolsAvailable,
@@ -94,7 +93,7 @@ export const makeLoggable = <T extends {}>(
       break;
     }
     default:
-      throw new UnreachableCaseError(loggerType);
+      return loggerType satisfies never;
   }
 
   if (config.storeConsoleAccess) {

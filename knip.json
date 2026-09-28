@@ -1,4 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["slop-scan.config.mjs"],
   "project": ["**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}", "!example/**"]
 }
