@@ -1,0 +1,12 @@
+{
+  "projects": ["tsconfig.json"],
+  "testFiles": ["**/*.test.{ts,tsx}"],
+  "rules": {
+    "unused-exports": [
+      "error",
+      {
+        "entry": ["src/index.ts"]
+      }
+    ]
+  }
+}

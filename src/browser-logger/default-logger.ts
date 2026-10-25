@@ -5,7 +5,6 @@ const colors = {
   red: '#FF6157',
   blue: '#28B7F6',
   orange: '#FFBC2D',
-  green: '#2BC941',
 };
 
 export class DefaultLogger implements Logger {

@@ -22,11 +22,10 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "pnpm run \"/^lint:.*/\"",
-    "lint:jscpd": "jscpd src --format typescript,tsx --min-lines 10 --min-tokens 50 --ignore '**/*.test.*' --exit-code 1 --no-colors --no-tips --reporters ai",
-    "lint:knip": "knip",
     "lint:oxlint": "oxlint --format=agent",
-    "lint:slop-scan": "slop-scan scan . --lint | tee /dev/stderr | grep -q '^0 findings$'",
+    "lint:slop-police": "slop-police",
     "test": "vitest",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
@@ -53,9 +52,7 @@
     "@size-limit/preset-small-lib": "^5.0.3",
     "@types/node": "18.11.18",
     "@types/react": "^18.3.31",
-    "jscpd": "^5.3.2",
     "jsdom": "^25.0.1",
-    "knip": "^6.38.0",
     "lefthook": "^2.1.14",
     "mobx": "^7.0.0",
     "oxfmt": "^0.70.0",
@@ -64,7 +61,7 @@
     "rollup": "^2.61.1",
     "rollup-plugin-dts": "^4.0.1",
     "size-limit": "^5.0.3",
-    "slop-scan": "^0.3.0",
+    "slop-police": "^0.3.8",
     "tslib": "^2.3.1",
     "typescript": "^4.9.0",
     "vitest": "^2.1.4"
