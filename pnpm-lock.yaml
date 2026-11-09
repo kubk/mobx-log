@@ -54,8 +54,8 @@ importers:
         specifier: ^5.0.3
         version: 5.0.5
       slop-police:
-        specifier: ^0.3.9
-        version: 0.3.9
+        specifier: ^0.3.14
+        version: 0.3.14
       tslib:
         specifier: ^2.3.1
         version: 2.3.1
@@ -2443,28 +2443,28 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  slop-police-darwin-arm64@0.3.9:
-    resolution: {integrity: sha512-GJU0us4v8TtcLXagXO17qEhm5bVwt6yg/+pW2P9BLCtNTQ7Y4C1uX0lp1t5/ReIoxUL82pa+rzYtf9isBVbJbA==}
+  slop-police-darwin-arm64@0.3.14:
+    resolution: {integrity: sha512-jAGQhjyKudE6KXFuj50gF3cAz/wIdALyhvGxsgHJVkKMtwnbAA8Ag4AUPWxwjOR/6I1fMpvkx23PI4WkG8sGow==}
     cpu: [arm64]
     os: [darwin]
 
-  slop-police-darwin-x64@0.3.9:
-    resolution: {integrity: sha512-LzW2prirSfxGHNaNWvnE8cU4FrvlUY981EWKhHcpNdy+8v0Eo5uuSaQ+BJSSl9Y5XEKnTdellP0fFHmF8E3+tQ==}
+  slop-police-darwin-x64@0.3.14:
+    resolution: {integrity: sha512-65UqoTunVQ0qykGBHXWN7F4em/fzVFQ+dyUYXeIw9m7if27sfkCYixDr7qgEJ+smV+fuM4EzgecDA9hEv5IIyg==}
     cpu: [x64]
     os: [darwin]
 
-  slop-police-linux-arm64@0.3.9:
-    resolution: {integrity: sha512-92OY5PVwKUBhxOO3N0RFl2mGjrtCqgYv//pwSF0bu8pzQyJXfMJG9PvmVQKFNwO2YP2ZPh/qkN1CuFH/ot8uxQ==}
+  slop-police-linux-arm64@0.3.14:
+    resolution: {integrity: sha512-8R6z58ryqx7AWXyDa0z4QbGblYCCIGQPAzgXM+VkxRA7qbxnnTGBx/Kaceijx7R2iXFQmL9M61/IQrNoONBa4Q==}
     cpu: [arm64]
     os: [linux]
 
-  slop-police-linux-x64@0.3.9:
-    resolution: {integrity: sha512-hlmRqurBkZDSkKHZdKqw3SW7f1A5UXitC6b5oU+znpWvsiOTbDyDQCQwpTe/sMhFrSSQG0mosupM59lJ3adWng==}
+  slop-police-linux-x64@0.3.14:
+    resolution: {integrity: sha512-kQz8QUrqlG2HRIaJI+nS7yZ26zPchDoE0uV1IQdE/Zgd2s5xyZHr45S7Y82FqQvt8ud1vjP4Bixvxx4rzKI2Tw==}
     cpu: [x64]
     os: [linux]
 
-  slop-police@0.3.9:
-    resolution: {integrity: sha512-aPd3mUixQHHJkFVPw34asmevruODf5iLdQ0vxkOKuGBEyZSj1vqtcKZDCEOCgs0KRNAKiMLMJfzuwpQkPdDpEQ==}
+  slop-police@0.3.14:
+    resolution: {integrity: sha512-cNwFYTX55+V09XSWpAhYqsCVXWpA+cT2Kgq+oGHEP2pDibkjbdW+VzRogYObnrH+uguvBYUtexBgmMmk2b49Iw==}
     engines: {node: '>=22.18'}
     hasBin: true
 
@@ -5379,24 +5379,24 @@ snapshots:
 
   slash@3.0.0: {}
 
-  slop-police-darwin-arm64@0.3.9:
+  slop-police-darwin-arm64@0.3.14:
     optional: true
 
-  slop-police-darwin-x64@0.3.9:
+  slop-police-darwin-x64@0.3.14:
     optional: true
 
-  slop-police-linux-arm64@0.3.9:
+  slop-police-linux-arm64@0.3.14:
     optional: true
 
-  slop-police-linux-x64@0.3.9:
+  slop-police-linux-x64@0.3.14:
     optional: true
 
-  slop-police@0.3.9:
+  slop-police@0.3.14:
     optionalDependencies:
-      slop-police-darwin-arm64: 0.3.9
-      slop-police-darwin-x64: 0.3.9
-      slop-police-linux-arm64: 0.3.9
-      slop-police-linux-x64: 0.3.9
+      slop-police-darwin-arm64: 0.3.14
+      slop-police-darwin-x64: 0.3.14
+      slop-police-linux-arm64: 0.3.14
+      slop-police-linux-x64: 0.3.14
 
   snapdragon-node@2.1.1:
     dependencies:
