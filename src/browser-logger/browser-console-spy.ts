@@ -121,13 +121,13 @@ export class BrowserConsoleSpy {
 
         if (event.observableKind === 'array') {
           const observableFullName = parseDebugName(event.debugObjectName);
-          const [storeName, key] = observableFullName.split('.');
+          const [storeName] = observableFullName.split('.');
           if (!this.filtersPerStore[storeName]?.observables) {
             return;
           }
           logger.logObservable({
             type: event.observableKind,
-            name: `${storeName}.${key.toString()}`,
+            name: observableFullName,
             // @ts-expect-error
             removed: event.removed,
             // @ts-expect-error
@@ -137,7 +137,7 @@ export class BrowserConsoleSpy {
 
         if (event.observableKind === 'map') {
           const observableFullName = parseDebugName(event.debugObjectName);
-          const [storeName, key] = observableFullName.split('.');
+          const [storeName] = observableFullName.split('.');
           if (!this.filtersPerStore[storeName]?.observables) {
             return;
           }
@@ -146,14 +146,14 @@ export class BrowserConsoleSpy {
             key: event.name,
             value: 'newValue' in event ? event.newValue : undefined,
             oldValue: 'oldValue' in event ? event.oldValue : undefined,
-            name: `${storeName}.${key.toString()}`,
+            name: observableFullName,
             mapType: event.type,
           });
         }
 
         if (event.observableKind === 'set') {
           const observableFullName = parseDebugName(event.debugObjectName);
-          const [storeName, key] = observableFullName.split('.');
+          const [storeName] = observableFullName.split('.');
           if (!this.filtersPerStore[storeName]?.observables) {
             return;
           }
@@ -167,7 +167,7 @@ export class BrowserConsoleSpy {
           logger.logObservable({
             type: 'set',
             value,
-            name: `${storeName}.${key.toString()}`,
+            name: observableFullName,
             setType: event.type,
           });
         }
