@@ -33,7 +33,7 @@ jobs:
       # Release builds skip the Actions cache so a poisoned cache entry cannot reach the published package.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 24
+          node-version-file: .node-version
           package-manager-cache: false
           registry-url: https://registry.npmjs.org
 
