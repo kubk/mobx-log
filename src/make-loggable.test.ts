@@ -114,7 +114,7 @@ class StoreWithoutLog {
   }
 }
 
-type Todo = { id: number; text: string; isDone: boolean };
+type Todo = { id: number; text: string; isDone: boolean; tags: string[] };
 
 class TodoStore {
   todos: Todo[] = [];
@@ -129,7 +129,12 @@ class TodoStore {
       id,
       text,
       isDone: false,
+      tags: [],
     });
+  }
+
+  addTag(id: number, tag: string) {
+    this.todos.find((todo) => todo.id === id)?.tags.push(tag);
   }
 
   markAsDone(id: number) {
@@ -193,6 +198,14 @@ describe('makeLoggable', () => {
     todoStore.markAsDone(1);
 
     expect(collectingWriter.history).toMatchSnapshot();
+
+    collectingWriter.clear();
+    todoStore.addTag(1, 'music');
+
+    expect(collectingWriter.history).toEqual([
+      '%c[A]%c TodoStore.addTag(%o, %o) color:#FF6157 color:inherit 1 music',
+      '%c[O] color:#FFBC2D TodoStore.todos[..].tags has changed. Added:  music',
+    ]);
   });
 
   it('logs plain array changes correctly', () => {
