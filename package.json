@@ -38,6 +38,7 @@
   "name": "mobx-log",
   "author": "Egor Gorbachev",
   "module": "dist/mobx-log.esm.js",
+  "sideEffects": false,
   "size-limit": [
     {
       "path": "dist/index.js",

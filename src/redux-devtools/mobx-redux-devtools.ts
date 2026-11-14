@@ -21,8 +21,8 @@ declare global {
   }
 }
 
-export const isReduxDevtoolsAvailable =
-  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__;
+export const isReduxDevtoolsAvailable = () =>
+  typeof window !== 'undefined' && !!window.__REDUX_DEVTOOLS_EXTENSION__;
 
 const devtoolsMap = new Map<string, Devtools>();
 

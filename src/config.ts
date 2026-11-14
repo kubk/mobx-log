@@ -2,10 +2,7 @@ import { DefaultLogger } from './browser-logger/default-logger';
 import { Logger } from './types';
 import { DefaultLogWriter } from './browser-logger/log-writer';
 
-export enum LoggerType {
-  ReduxDevtools = 'redux-devtools',
-  BrowserConsole = 'browser-console',
-}
+export type LoggerType = 'redux-devtools' | 'browser-console';
 
 export type Config = {
   logger: Logger;
@@ -20,7 +17,10 @@ export type Config = {
 };
 
 export const config: Config = {
-  logger: new DefaultLogger(new DefaultLogWriter()),
+  // Pure so bundlers drop the default logger when makeLoggable is a no-op in production
+  logger: /* @__PURE__ */ new DefaultLogger(
+    /* @__PURE__ */ new DefaultLogWriter()
+  ),
   debug: false,
   storeConsoleAccess: true,
   browserConsoleFallback: true,

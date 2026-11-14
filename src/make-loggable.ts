@@ -31,10 +31,15 @@ export const makeLoggable = <T extends {}>(
   store: T,
   perStoreConfig?: PerStoreFilters
 ): T => {
-  if (process.env.NODE_ENV === 'production' || typeof window === 'undefined') {
-    return store;
+  // Dev-only code must stay inside this branch: bundlers drop a branch whose
+  // condition is statically false, but esbuild keeps code after an early return.
+  if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
+    logStore(store, perStoreConfig);
   }
+  return store;
+};
 
+const logStore = (store: {}, perStoreConfig?: PerStoreFilters) => {
   if (!isObservable(store)) {
     throw new Error(
       'mobx-log: store is not observable: ' +
@@ -43,15 +48,15 @@ export const makeLoggable = <T extends {}>(
     );
   }
 
-  const loggerType: LoggerType | null = isReduxDevtoolsAvailable
-    ? LoggerType.ReduxDevtools
+  const loggerType: LoggerType | null = isReduxDevtoolsAvailable()
+    ? 'redux-devtools'
     : config.browserConsoleFallback
-      ? LoggerType.BrowserConsole
+      ? 'browser-console'
       : null;
 
   const storeName = getStoreName(store);
   if (storeName === null) {
-    return store;
+    return;
   }
 
   switch (loggerType) {
@@ -59,10 +64,10 @@ export const makeLoggable = <T extends {}>(
       // Redux devtools are not installed and the browser console fallback is
       // disabled - skip logging entirely to avoid noise in the console.
       break;
-    case LoggerType.ReduxDevtools:
+    case 'redux-devtools':
       addStoreToDevtools(store);
       break;
-    case LoggerType.BrowserConsole: {
+    case 'browser-console': {
       if (!browserConsoleSpy) {
         browserConsoleSpy = new BrowserConsoleSpy(
           config.logger,
@@ -93,13 +98,11 @@ export const makeLoggable = <T extends {}>(
       break;
     }
     default:
-      return loggerType satisfies never;
+      loggerType satisfies never;
   }
 
   if (config.storeConsoleAccess) {
     window.store = window.store || {};
     window.store[storeName] = store;
   }
-
-  return store;
 };
