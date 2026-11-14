@@ -1,44 +1,62 @@
-name: publish
+name: Release
 
+# npm trusted publishing is bound to this file name (publish.yml); renaming it breaks publishing.
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    tags: ['v*']
 
 permissions:
   contents: read
-  id-token: write # required for npm trusted publishing (OIDC)
 
 jobs:
+  test:
+    uses: $/.github/workflows/main.yml
+
   publish:
+    needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      # Full history and tags let the release notes list commits since the previous tag.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
         with:
           version: 9.15.0
 
-      - uses: actions/setup-node@v4
+      # Release builds skip the Actions cache so a poisoned cache entry cannot reach the published package.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
-          cache: pnpm
+          package-manager-cache: false
           registry-url: https://registry.npmjs.org
 
-      # Trusted publishing requires npm >= 11.5.1
-      - name: Update npm
-        run: npm install -g npm@latest
+      - name: Check tag matches package version
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
 
-      - name: Install
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
-      # No NODE_AUTH_TOKEN: npm authenticates via GitHub OIDC and adds provenance automatically
+      # No NODE_AUTH_TOKEN: npm authenticates via GitHub OIDC and adds provenance automatically.
       - name: Publish
-        run: npm publish --access public
+        run: |
+          spec=$(node -p "const p = require('./package.json'); p.name + '@' + p.version")
+          if npm view "$spec" version >/dev/null 2>&1; then
+            echo "$spec is already published"
+          else
+            npm publish --access public
+          fi
+
+      - name: Create GitHub release
+        run: |
+          prev=$(git describe --tags --abbrev=0 "$GITHUB_REF_NAME^")
+          git log --reverse --invert-grep --grep '^Release ' \
+            --format="- [%s]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/%H)" "$prev..$GITHUB_REF_NAME" > notes.md
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
