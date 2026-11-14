@@ -14,7 +14,10 @@
   "engines": {
     "node": ">=10"
   },
-  "repository": "https://github.com/kubk/mobx-log",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kubk/mobx-log.git"
+  },
   "main": "dist/index.js",
   "types": "dist/mobx-log.d.ts",
   "scripts": {
